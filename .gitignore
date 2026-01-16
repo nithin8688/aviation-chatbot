@@ -1,0 +1,66 @@
+# Byte-code files
+*.pyc
+__pycache__/
+##
+# Directories
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Distribution / Packaging
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.manifest
+*.whl
+
+# PyInstaller
+# See https://github.com
+# for pyinstaller specifics
+*.cible
+*.layout
+*.pyi
+*.pylib
+*.pys
+
+# Unit test / coverage
+.coverage
+.tox/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# IDE specific files
+.idea/  # For PyCharm
+.vscode/ # For VS Code
+
+# Environment variables
+.env
+.flaskenv
+
+# Miscellaneous
+*.log
+npm-debug.log*
+pip-log.txt
+pip-delete-this-arg.txt
+
+# Databases
+*.sqlite
+*.sqlite3
+
+# OS generated files
+.DS_Store # Mac
