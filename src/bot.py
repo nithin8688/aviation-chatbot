@@ -1,6 +1,6 @@
 from functools import lru_cache
 from src.rag_engine import RAGEngine
-from src.config import ENABLE_RESPONSE_CACHING, CACHE_MAX_SIZE
+from src.config import ENABLE_RESPONSE_CACHING, CACHE_MAX_SIZE, DEFAULT_TOP_K
 
 # Create a single shared RAG engine instance
 _rag_engine = RAGEngine()
@@ -40,7 +40,7 @@ def _cached_answer(combined_query: str) -> str:
 # -------------------------
 # Public entry point
 # -------------------------
-def ask_aviation_bot(user_query: str) -> str:
+def ask_aviation_bot(user_query: str, top_k: int = DEFAULT_TOP_K) -> str:
     """
     Single public entry point for the aviation chatbot.
     Supports multi-turn follow-up questions.

@@ -163,11 +163,29 @@ class RAGEngine:
                 "Confidence: 0.00 (Very Low)"
             )
 
-        context = "\n\n".join(
-            f"(Source: {c['document_name']}, Page {c['page_number']})\n"
-            f"{c['text'][:MAX_CONTEXT_CHARS]}"
-            for c in retrieved_chunks
-        )
+        # context = "\n\n".join(
+        #     f"(Source: {c['document_name']}, Page {c['page_number']})\n"
+        #     f"{c['text'][:MAX_CONTEXT_CHARS]}"
+        #     for c in retrieved_chunks
+        # )
+        MAX_EVAL_CONTEXT_CHARS = 1200  # HARD LIMIT FOR LOW-RAM SYSTEMS
+
+        context_parts = []
+        current_len = 0
+
+        for c in retrieved_chunks:
+            chunk_text = (
+                f"(Source: {c['document_name']}, Page {c['page_number']})\n"
+                f"{c['text']}"
+            )
+            if current_len + len(chunk_text) > MAX_EVAL_CONTEXT_CHARS:
+                break
+            context_parts.append(chunk_text)
+            current_len += len(chunk_text)
+
+        context = "\n\n".join(context_parts)
+
+        
 
         prompt = f"""
 {SYSTEM_PROMPT}

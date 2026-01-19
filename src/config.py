@@ -18,7 +18,9 @@ FAISS_INDEX_PATH = DATA_DIR / "faiss_index.bin"
 # =====================================================
 
 EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
-LLM_MODEL_NAME = "llama3:latest"
+# LLM_MODEL_NAME = "llama3:latest"
+# LLM_MODEL_NAME = "phi3:mini"
+LLM_MODEL_NAME = "tinyllama"
 EMBEDDING_BATCH_SIZE = 32
 
 # =====================================================
