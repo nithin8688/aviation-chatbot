@@ -1,100 +1,139 @@
+"""
+Configuration file for Aviation Chatbot
+Supports both Local (FAISS) and Cloud (PostgreSQL + Gemini) modes
+"""
+
 from pathlib import Path
 
-# =====================================================
-# Project Paths (ON-PREM ONLY)
-# =====================================================
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-DATA_DIR = BASE_DIR / "data"
+# ============================================================================
+# PROJECT PATHS
+# ============================================================================
+PROJECT_ROOT = Path(__file__).parent.parent
+DATA_DIR = PROJECT_ROOT / "data"
 RAW_PDF_DIR = DATA_DIR / "raw_pdfs"
 
+# Legacy file-based storage (for backward compatibility)
 PAGES_PATH = DATA_DIR / "pages.json"
 CHUNKS_PATH = DATA_DIR / "chunks.json"
 FAISS_INDEX_PATH = DATA_DIR / "faiss_index.bin"
+BM25_INDEX_PATH = DATA_DIR / "bm25_index.pkl"
 
-# =====================================================
-# Models (LOCAL / ON-PREM)
-# =====================================================
+# ============================================================================
+# DATABASE CONFIGURATION (PostgreSQL + pgvector)
+# ============================================================================
+DB_HOST = "localhost"
+DB_PORT = 5432
+DB_NAME = "aviation_chatbot"
+DB_USER = "postgres"
+DB_PASSWORD = "aviation123"
 
+# Connection string for SQLAlchemy
+DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+
+# ============================================================================
+# EMBEDDING MODEL CONFIGURATION
+# ============================================================================
 EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
-# LLM_MODEL_NAME = "llama3:latest"
-# LLM_MODEL_NAME = "phi3:mini"
-LLM_MODEL_NAME = "tinyllama"
+EMBEDDING_DIMENSION = 384  # Dimension for all-MiniLM-L6-v2
 EMBEDDING_BATCH_SIZE = 32
 
-# =====================================================
-# Retrieval Configuration
-# =====================================================
+# ============================================================================
+# CHUNKING CONFIGURATION
+# ============================================================================
+CHUNK_SIZE = 400
+CHUNK_OVERLAP = 100
 
-# Number of chunks to retrieve
-DEFAULT_TOP_K = 3
+# ============================================================================
+# RETRIEVAL CONFIGURATION
+# ============================================================================
+TOP_K_RETRIEVAL = 5  # Number of chunks to retrieve
+SIMILARITY_THRESHOLD = 0.7  # Minimum similarity score
 
-# Similarity threshold for accepting retrieved chunks
-SIMILARITY_THRESHOLD = 0.45
+# ============================================================================
+# LLM CONFIGURATION
+# ============================================================================
 
-# Enable hybrid retrieval (BM25 + FAISS)
-ENABLE_HYBRID_RETRIEVAL = True
+# Local LLM (Ollama)
+LLM_MODEL_NAME = "llama3.2"  # Your existing Ollama model
+LLM_TEMPERATURE = 0.1
 
-# BM25-specific parameters
-BM25_TOP_K = 3
+# Cloud LLM (Gemini)
+GEMINI_API_KEY = "AIzaSyDrk-9RnExxmQ2ba2BWupNSrRBskCfXm40"  # Replace with your actual key
+GEMINI_MODEL = "gemini-2.5-flash"  # Options: gemini-1.5-pro, gemini-1.5-flash
 
-# =====================================================
-# Context & Prompt Control
-# =====================================================
+# LLM Mode: "local" or "cloud"
+LLM_MODE = "cloud"  # Switch between local (Ollama) and cloud (Gemini)
 
-# Maximum characters passed to LLM as context
-MAX_CONTEXT_CHARS = 500
+# ============================================================================
+# SYSTEM PROMPT
+# ============================================================================
+SYSTEM_PROMPT = """You are an expert Aviation Assistant with deep knowledge of airport operations, SCADA systems, and aviation safety regulations.
 
-# =====================================================
-# Confidence Scoring Configuration
-# =====================================================
+Your role is to:
+1. Answer questions accurately based on the provided context from official aviation documents
+2. Cite specific sources (document name and page number) when providing information
+3. If the context doesn't contain enough information, clearly state this limitation
+4. Use technical aviation terminology appropriately
+5. Prioritize safety and regulatory compliance in your responses
 
-# Enable confidence scoring for responses
-ENABLE_CONFIDENCE_SCORING = True
+Guidelines:
+- Be precise and factual
+- Reference the source documents explicitly
+- If uncertain, acknowledge the uncertainty rather than speculating
+- Break down complex technical concepts when helpful
+- Maintain a professional but accessible tone
+"""
 
-# Minimum confidence required to trust an answer
-MIN_CONFIDENCE_THRESHOLD = 0.6
+# ============================================================================
+# RETRIEVAL PROMPT TEMPLATE
+# ============================================================================
+def get_rag_prompt(query: str, context: str) -> str:
+    """
+    Generate a RAG prompt with query and retrieved context
+    
+    Args:
+        query: User's question
+        context: Retrieved context from documents
+    
+    Returns:
+        Formatted prompt string
+    """
+    return f"""{SYSTEM_PROMPT}
 
-# =====================================================
-# Response Caching Configuration
-# =====================================================
+Context from Aviation Documents:
+{context}
 
-# Enable response caching at bot level
-ENABLE_RESPONSE_CACHING = True
+User Question:
+{query}
 
-# Maximum number of cached responses
-CACHE_MAX_SIZE = 500
+Instructions:
+- Base your answer strictly on the provided context
+- Cite sources using format: (Source: document_name.pdf, Page X)
+- If the context doesn't fully answer the question, acknowledge this
+- Provide a clear, structured response
 
-# =====================================================
-# System Prompt (Aviation-Specific, Explainable)
-# =====================================================
+Answer:"""
 
-SYSTEM_PROMPT = """
-You are an aviation-domain assistant designed for airport operations and aviation-related systems.
+# ============================================================================
+# TABLE SCHEMA (for PostgreSQL)
+# ============================================================================
+KNOWLEDGE_CHUNKS_TABLE = """
+CREATE TABLE IF NOT EXISTS knowledge_chunks (
+    id SERIAL PRIMARY KEY,
+    content TEXT NOT NULL,
+    embedding vector(384),  -- Matches EMBEDDING_DIMENSION
+    document_name VARCHAR(255) NOT NULL,
+    page_number INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    metadata JSONB  -- For future extensibility (tags, categories, etc.)
+);
 
-Use the provided aviation or SCADA context as the authoritative reference.
+-- Create index for faster vector similarity search
+CREATE INDEX IF NOT EXISTS embedding_idx ON knowledge_chunks 
+USING ivfflat (embedding vector_cosine_ops)
+WITH (lists = 100);
 
-Your task is to explain concepts clearly and in simple, professional terms, as an experienced aviation or systems engineer would.
-When answering a question:
-- Explain what the concept is
-- Explain how it works
-- Explain how it is relevant to aviation or airport operations, where applicable
-
-You MAY:
-- Rephrase the content
-- Summarize information
-- Explain concepts in your own words for better understanding
-
-You MUST:
-- Base your explanation strictly on the provided context
-- NOT introduce facts that contradict the context
-- NOT invent details that are not supported by the documents
-
-If the provided context does not contain enough information to explain the concept properly, say clearly:
-"I don't have sufficient information in the provided aviation documents to explain this."
-
-Do NOT hallucinate.
-Do NOT answer outside the aviation or SCADA domains.
-Maintain a professional, factual, and safety-conscious tone.
+-- Create index for text search (optional, for hybrid search)
+CREATE INDEX IF NOT EXISTS document_name_idx ON knowledge_chunks (document_name);
+CREATE INDEX IF NOT EXISTS page_number_idx ON knowledge_chunks (page_number);
 """
