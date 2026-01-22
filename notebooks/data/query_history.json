@@ -1,0 +1,44 @@
+[
+  {
+    "timestamp": "2026-01-22T12:50:09.157223",
+    "query": "What are airport safety regulations?",
+    "answer": "Airport safety regulations are established at both international and national levels to ensure the safe conduct of aviation operations.\n\nGlobally, safety regulation of airports has been in effect since the signing of the Chicago Convention and the creation of the International Civil Aviation Organization (ICAO) (Source: airport_operations.pdf, Page 425). ICAO Member States adopt ICAO guidance for safety considerations, which are then translated into their national regulatory frameworks (Source: airport_operations.pdf, Page 426).\n\nNational regulations typically focus on elements of the airport related to the safe conduct of aviation (Source: airport_operations.pdf, Page 495). These national regulations also set out the requirements for the licensing or certification of an airport (Source: airport_operations.pdf, Page 120).\n\nFor instance, in the United States, airport licensing and certification requirements are found in Part 139 of the Code of Federal Regulations (CFR 2004). This part specifies certain criteria that must be met in relation to pavement areas (such as runways, taxiways, and aprons) and safety areas (Source: airport_operations.pdf, Page 120).\n\nThe provided context outlines the framework and scope of airport safety regulations but does not provide a comprehensive list of all specific regulations.",
+    "num_sources": 5,
+    "sources": [
+      {
+        "document": "airport_operations.pdf",
+        "page": 495,
+        "similarity": 0.7781005269855135,
+        "content_preview": "national regulations is usually limited in its contents to the elements of the airport related to\nth"
+      },
+      {
+        "document": "airport_operations.pdf",
+        "page": 241,
+        "similarity": 0.6986413210225502,
+        "content_preview": "general terms airport security requirements. For obvious reasons, descriptions of detailed\nprocedura"
+      },
+      {
+        "document": "airport_operations.pdf",
+        "page": 425,
+        "similarity": 0.692433022550706,
+        "content_preview": "must be avoided.”\nAirport Privatisation, IATA Economics Briefing No. 1; available at\nwww.iata.org/Si"
+      },
+      {
+        "document": "airport_operations.pdf",
+        "page": 120,
+        "similarity": 0.6850158180301138,
+        "content_preview": "into the latter category.\nThe requirements for the licensing or certification of an airport are set "
+      },
+      {
+        "document": "airport_operations.pdf",
+        "page": 426,
+        "similarity": 0.6636344988237175,
+        "content_preview": "ICAO Member States have adopted ICAO guidance for safety, security, and environmental\nconsiderations"
+      }
+    ],
+    "performance": {
+      "retrieval_time": 0.04564023017883301,
+      "generation_time": 4.969456911087036
+    }
+  }
+]
