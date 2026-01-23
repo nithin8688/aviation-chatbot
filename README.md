@@ -46,7 +46,7 @@ Open `src/config.py` and ensure:
 
 ```python
 GEMINI_API_KEY = "your-actual-api-key-here"
-GEMINI_MODEL = "gemini-2.5-flash"
+GEMINI_MODEL = "gemini-1.5-pro"
 ```
 
 ### 3. Install Dependencies (if needed)
@@ -216,3 +216,8 @@ For issues:
 2. Review notebook outputs
 3. Verify Docker container status
 4. Check API key configuration
+
+
+
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")

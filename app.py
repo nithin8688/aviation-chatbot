@@ -168,13 +168,23 @@ with st.sidebar:
             with open(pdf_path, "wb") as f:
                 f.write(uploaded_file.getbuffer())
             
-            # Ingest the PDF
-            with st.spinner(f"🔄 Processing {uploaded_file.name}..."):
-                result = ingest_pdf(pdf_path, skip_if_exists=False)
+            # Ingest the PDF with progress tracking
+            progress_bar = st.progress(0)
+            status_text = st.empty()
+            
+            def update_progress(message, progress):
+                status_text.text(message)
+                progress_bar.progress(progress)
+            
+            result = ingest_pdf(pdf_path, skip_if_exists=False, progress_callback=update_progress)
+            
+            progress_bar.empty()
+            status_text.empty()
             
             if result["status"] == "success":
                 st.success(f"✅ {result['message']}")
                 st.info(f"📄 Pages: {result['pages']} | Chunks: {result['chunks']}")
+                time.sleep(1)
                 st.rerun()  # Refresh to show new document
             elif result["status"] == "skipped":
                 st.warning(f"⚠️ {result['message']}")
@@ -206,7 +216,9 @@ with st.sidebar:
     
     # Settings
     st.header("⚙️ Settings")
-    top_k = st.slider("Number of sources to retrieve", min_value=1, max_value=10, value=5)
+    top_k = st.slider("Number of sources to retrieve", min_value=3, max_value=15, value=8)
+    
+    st.info("💡 **Tips for Better Answers:**\n- More sources = more detailed answers\n- Technical docs work best with 8-10 sources")
     
     st.info("💡 **Rate Limit Info:**\nFree tier: 15 requests/min\nWait 4s between queries")
     
