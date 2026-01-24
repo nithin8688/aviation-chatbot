@@ -25,7 +25,6 @@ A production-ready, AI-powered chatbot for querying aviation technical documents
 - [Troubleshooting](#troubleshooting)
 - [Future Enhancements](#future-enhancements)
 - [Contributing](#contributing)
-- [License](#license)
 
 ---
 
@@ -148,7 +147,7 @@ The Aviation Chatbot is an intelligent question-answering system designed for av
 #### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/aviation-chatbot.git
+git clone https://github.com/nithin8688/aviation-chatbot.git
 cd aviation-chatbot
 ```
 
@@ -271,9 +270,9 @@ aviation-chatbot/
 │   └── ingest.py                   # PDF ingestion pipeline
 │
 ├── notebooks/                      # Jupyter notebooks
-│   ├── setup_database.ipynb        # DB initialization
-│   ├── unified_ingestion_to_postgres.ipynb  # PDF processing
-│   └── rag_with_gemini.ipynb      # Testing queries
+│   ├── 1_setup_database.ipynb        # DB initialization
+│   ├── 2_unified_ingestion_to_postgres.ipynb  # PDF processing
+│   └── 3_rag_with_gemini.ipynb      # Testing queries
 │
 ├── data/                           # Data storage
 │   ├── raw_pdfs/                   # Initial PDF documents
@@ -284,7 +283,6 @@ aviation-chatbot/
 ├── requirements.txt                # Python dependencies
 ├── README.md                       # This file
 ├── .gitignore                      # Git ignore rules
-└── LICENSE                         # MIT License
 
 ```
 
@@ -557,12 +555,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
 ## 👏 Acknowledgments
 
 - **Google Gemini** for powerful LLM capabilities
@@ -575,11 +567,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact
 
-**Project Maintainer**: Your Name
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+**Project Maintainer**: Nithin Reddy
+- GitHub: [@nithin8688](https://github.com/nithin8688)
+- Email: nithin.dev8688@gmail.com
 
-**Project Link**: https://github.com/yourusername/aviation-chatbot
+**Project Link**: https://github.com/nithin/aviation-chatbot
 
 ---
 
