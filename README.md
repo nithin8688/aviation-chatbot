@@ -5,7 +5,6 @@ A production-ready, AI-powered chatbot for querying aviation technical documents
 ![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.31.0-red.svg)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16+-blue.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 ---
 
