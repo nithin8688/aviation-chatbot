@@ -1,81 +1,349 @@
 [
   {
     "role": "user",
-    "content": "who is dhoni"
+    "content": "who is Nithin?"
   },
   {
     "role": "assistant",
-    "content": "Based on the provided context, there is no information about \"Dhoni\". The provided documents focus on SCADA systems, financial projections, control algorithms, and communication protocols.",
+    "content": "I apologize, but the information you're asking about is not available in the provided technical documentation.\n\n📚 Available Documents:\n• Airport Engineering Planning Design and Development.pdf\n• airport_operations.pdf\n• computerized maintenance management systems.pdf\n• Airport Baggage Handling Systems Using the Baggage.pdf\n• scada_manual.pdf\n\nThese documents focus on aviation operations, SCADA systems, and airport management.\n\n💡 Please feel free to ask questions related to:\n• Airport operations and procedures\n• SCADA systems and controls\n• Aviation safety and regulations\n• Aircraft handling and maintenance\n• Airport infrastructure and design\n\nHow can I help you with aviation-related topics?",
     "sources": [
       {
-        "content": "For year 8, PV = $128,229.\nThe total PV12 is the sum of all these amounts. PV12 = $1,040,601.\nIn the same way that the value of benefits received in the future must be\ndiscounted by a number related to interest, the future value of some of\nthese items must be increased by a number related to inflation. Labor\nrates, for example, can be projected to rise over time in some more or less",
-        "document": "scada_manual.pdf",
-        "page": 164,
-        "similarity": 0.13054522805866953
+        "content": "llA\nllA\nnoitarapeS\ntfarcriA\nyawnur\ndna\nsnoitarepo\nyawnur\nsnoitarepo\ndaolkroW\ndaolkroW\ndaolkroW\nseY\nA/N\nA/N\nseirosivdA\nciffarT\ngnittimrep\ngnittimrep\ngnittimrep\nseY\nseY\nseY\nseY\nseY\nseY\nstrelA\nytefaS\n.1.feR\n:ecruoS\n190",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 203,
+        "similarity": 0.1737955756844416
       },
       {
-        "content": "the process. When a SCADA system is installed between the operator and\nthe process, some additional engineering effort is required. For example,\nthe patent has run out on the thermometer, but it may not have run out on\nthe noncontact, infrared-sensing, 4-20 mA output thermal-imaging\ndevice. The patent has run out on the quarter-turn, hand-operated ball",
-        "document": "scada_manual.pdf",
-        "page": 123,
-        "similarity": 0.08582001435220288
+        "content": "together with information regarding en-route and destination weather and notices regarding\nany unserviceabilities of navigation or landing aids. This latter information is contained in\nNotices to Airmen (NOTAMs), an internationally agreed-on system whereby the civil\naviation authorities of each country exchange information on the unserviceability of any of\nthe facilities in their country (e.g., navaids and airports). Airline flight dispatch staff will\nobtain NOTAMs from the appropriate governmental agency, edit them, and where\nnecessary, add details relating to any company facilities. Weather information also will be\nobtained from the meteorological department at the airport and might be augmented by in-",
+        "document": "airport_operations.pdf",
+        "page": 221,
+        "similarity": 0.1393967568874369
       },
       {
-        "content": "technology succeeds. In addition, automatic control using conventional\nalgorithms is likely to increase. It has been recognized for some time that a\nreally large operation! could be treated like smaller processes, but the\ncomputing power required to do it was not available in the MTU.\nTransferring the data out of the MTU and solving the control algorithm on",
-        "document": "scada_manual.pdf",
-        "page": 178,
-        "similarity": 0.08135689795017242
+        "content": "• Medical services\n• Labor unions\n• Customs\n• Government departments\nInternationally, ICAO requires that each Member State initiate a national aviation security\nprogram that can be developed by a national aviation security committee formed from\nrepresentatives of these organizations. If this body and the airports themselves are to be\neffective in countering security threats, there must be a clearly established process that\nstarts with the issue of a policy at the national level and is operationally apparent in the\nprocedures adopted at the individual airports. National policy is translated into a national\naviation security plan, a necessity if airports and government wish to do other than react\npost hoc to a security incident.2 The national plan is implemented by the provision of staff,",
+        "document": "airport_operations.pdf",
+        "page": 243,
+        "similarity": 0.1379080846419234
       },
       {
-        "content": "that is connected to each of the computer's ports. By answering these\nquestions, the operator is providing a picture of the process to the\ncomputer-or configuring the system. Thereafter, if the computer is\nrequired to output a message on LPil, it will use the correct protocol at\nthat port. Configuring an MTU is not much different, but there are many\nmore questions to be answered.",
-        "document": "scada_manual.pdf",
-        "page": 108,
-        "similarity": 0.07130418717861176
+        "content": "nally, and includes: internal modules, the weather module (using AERNET\nlogic), dispersion module (using AERMAP and AERMOD logic), and report-\ning module. This component also includes the emission processor for aircraft\n(using the aircraftperformancemodule and aircraftemissions module through\nWWLMINET) and the non-aircraft emission (mobile) module.\nExternal Interfaces. Shown as a dashed border in Figure 15.11 are programs that\ninclude AERMAP, AERMET, AERMOD, and MOBILE that are maintained\nby the EPA.\nInputs for the external interface programs are collected through the GUI, passed\nto the logic layer, and sent to the external program for processing. Once the run is\ncomplete, the results and associatedmessages are interpretedby EDMS and the output",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 654,
+        "similarity": 0.09507700979250633
       },
       {
-        "content": "according to a preestablished pattern. This pattern has established the meaning of\neach and every bit, and the protocol driver ensures that the information that is to be\ncommunicated fits into the message in the correct location.\n6-8. One of the functions of the modem is to monitor the communications medium and\nto advise the RTU or MTU when there is no traffic on the medium.\nUNIT7",
-        "document": "scada_manual.pdf",
-        "page": 193,
-        "similarity": 0.0685180053114891
+        "content": "118 Airport System Planning\nFigure 4.7 Total passengers at Atlanta Hartsfield International Airport,1970–1989 (3).\nThe purpose and uses of the NPIAS, as required by law, are:\n• It is a legal requirement of the FAA to report to Congress every other year.\n• It defines the national airport system and the roles of individual airports and is\nreported to Congress, the public, and international organizations.\n• It identifies airport development needs to meet their required role.\n• It is utilized by Congress in discussions of total airport development needs and\nfunding authorization.\n• It is usedby federalauditors to examine funding applications and by industry to\nmonitor airport development grants.\n• It is used as a base template for reporting airport condition and performance in\nthe system.",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 131,
+        "similarity": 0.08599253976389543
+      },
+      {
+        "content": "of alternatives, a, b ∈A the values π(a, b) and π(b, a) are computed. In this way, a\ncompletevaluedoutrankingrelationisconstructedonA.\nStep3:Exploitationfordecisionaid\nLetusconsiderhoweachalternativea∈Aisfacingthen-1otheronesandthere-\nforedefinethetwofollowingoutrankingflows:\n- thepositiveoutrankingflow:φ+(a)= 1 ∑ π(a,b)\nn−1 b∈A\nb(cid:54)=a\n- thenegativeoutrankingflow:φ−(a)= 1 ∑ π(b,a)\nn−1 b∈A\nb=(cid:54) a\nThepositiveoutrankingflowexpresseshowmucheachalternativesolutionisout-\nrankingalltheothers.Thehigherφ+(a),thebetterthealternative.φ+(a)represents\nthepowerofa,itsoutrankingcharacter.Thenegativeoutrankingflowexpresseshow\nmuch each alternative is outranked by all the others. The smaller φ−(a), the better\nthealternative.φ−(a)representstheweaknessofa,itsoutrankedcharacter[4,27].",
+        "document": "Airport Baggage Handling Systems Using the Baggage.pdf",
+        "page": 177,
+        "similarity": 0.0847465594188408
+      },
+      {
+        "content": "systemstoascaleablenetwork-centricarchitectureinwhicheveryonehaseasyaccess\ntothesame informationat thesame time.\nNextGen will provide such key characteristics as user focus, distributed decision\nmaking, integrated safety management system, international harmonization, capital-\nization on human and automation capabilities, enabling a common weather picture,\nsustainable environment management framework compatible with operations, robust-\nness and resiliency in responding to failures, and scalability in adapting to short- and\nlong-termdemandchanges.Theseaspectswillhaveafuturereflectiononeverychapter\nof this book.\nA brief overall comparison with the present system is:\nPresent System NextGen System\nGround-based navigation and surveillance Satellite-based navigation and surveillance",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 243,
+        "similarity": 0.0681339461723599
+      },
+      {
+        "content": "TheLeanPrinciples 137\nFigure12.10 From“as-is”to“to-be”consideringtheT.O.P.approach\nIn general, the objective is to improve the existing processes and introduce new\nones.Thisincludeschangestoexistingones,introductionofnewwaysofworking,\nperformancelevelsandoutputs,newproducts,newteams,newtechnologies,etc.It\ncoverseverythingtodowiththestafffromtheorganisationalcultureview.Examples\nare staffing levels, training needs, culture changes, new skill requirements, etc. It\nencompassesalsosystems,toolsandotherresourcessuchasbuildings.\n12.6.2 MODELLING\nModelling (i.e., analysis and simulation) is used to implement a theoretical model\n(acertaindesign)andintroducesparametersthatcanbeusedtostudythedifferent\nscenarios (e.g., changes the sequence, changes to the input data, how the system",
+        "document": "Airport Baggage Handling Systems Using the Baggage.pdf",
+        "page": 166,
+        "similarity": 0.061902452295872545
       }
     ]
   },
   {
     "role": "user",
-    "content": "who is operational management"
+    "content": "who created this aviation chatbot"
   },
   {
     "role": "assistant",
-    "content": "Based on the provided context, the documents do not explicitly define \"who\" constitutes operational management.\n\nHowever, the context does differentiate between \"operational\" and \"administrative chains of command\" (Source: airport_operations.pdf, Page 481) and mentions \"operational versus administrative/functional expertise management\" within a matrix management system (Source: airport_operations.pdf, Page 480). This suggests that operational management is a distinct management function focused on the operational aspects of the airport, separate from administrative or functional roles.\n\nThe text discusses \"basic operational procedures of airports\" (Source: airport_operations.pdf, Page 207) and \"operational philosophies\" in the terminal area, indicating areas where operational management would be focused. Senior airport management personnel are also mentioned in the context of handling emergencies (Source: airport_operations.pdf, Page 477), which would often involve operational aspects.\n\nIn summary, while the context clearly establishes the existence and distinction of operational management within the airport structure, it does not provide a specific definition of the individuals or roles that comprise it.",
+    "content": "I apologize, but the information you're asking about is not available in the provided technical documentation.\n\n📚 Available Documents:\n• Airport Engineering Planning Design and Development.pdf\n• airport_operations.pdf\n• computerized maintenance management systems.pdf\n• Airport Baggage Handling Systems Using the Baggage.pdf\n• scada_manual.pdf\n\nThese documents focus on aviation operations, SCADA systems, and airport management.\n\n💡 Please feel free to ask questions related to:\n• Airport operations and procedures\n• SCADA systems and controls\n• Aviation safety and regulations\n• Aircraft handling and maintenance\n• Airport infrastructure and design\n\nHow can I help you with aviation-related topics?",
     "sources": [
       {
-        "content": "workload for the CEO and the senior management team that should, however, be\ncounterbalanced by the benefits of being more rapidly and better informed of problems\nthrough the close monitoring of key performance indicators.\nSecond, a comprehensive set of operating rules based on the differentiation between\nthe operational and administrative chains of command should be established. Normally, the",
-        "document": "airport_operations.pdf",
-        "page": 481,
-        "similarity": 0.5405396223068237
+        "content": "• Accommodating aviation’s growth and replacing aging equipment/infrastructure\nin collaboration with the aviation community\n• Providinganadvanced,integrated,andsafeaviationsystemwithimprovedqual-\nity and reliability through integrated digital communications\n• Using satellite-based services for exceptional accuracy, increased operational\nsafety, and expanded airport coverage\n• Timely and accurate weather data for controllers and pilots\n• Deployingadvancedautomationcapabilitiestoaccelerateuserbenefitsandassess\nmodernization risks\n• Sharing information to more effectively manage flight planning with a common\nviewoftrafficflowandoptimizeaircraftsequencewithimprovedcontrollertools\n• Building upon newly developed advanced capabilities with seamless integration\nand transition into the NAS",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 197,
+        "similarity": 0.4522568015899189
       },
       {
-        "content": "Although the basic operational procedures of airports as they relate to safety are generally\nsimilar throughout the world, the manner in which those procedures are operated and the\norganization used to effect them can differ quite radically. Perhaps nowhere in the airport\ndo the operational philosophies differ as much as in the terminal area. The two extreme\npositions may be designated as",
-        "document": "airport_operations.pdf",
+        "content": "Airport Engineering\nPlanning, Design, and\nDevelopment of 21st Century\nAirports\nFourth Edition\nNorman J. Ashford\nSaleh Mumayiz\nPaul H. Wright\nJOHN WILEY & SONS, INC.",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 3,
+        "similarity": 0.43213939262267376
+      },
+      {
+        "content": "B sensors, terminal radars, the terminal automation system, and aircraft transponders.\nFusing the data from these sources enables ASDE-X to determine the position and\nidentificationofaircraftandvehiclesontheairportsurfacesaswellasofaircraftflying\nwithin 5mi (8km) of the airport (selectively up to 60 nautical mi). Controllers in the\nairport tower see this information presented as a color display of aircraft and vehicle\npositions overlaid on a map of the airport’s runways/taxiways and approach corridors.\nThis creates a continuously updated display of all airport surface operations that con-\ntrollers can use to spot potential collisions. Visual and audio alarms assist ASDE-X by\nalerting controllers to possible collisions or runway incursions.",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 214,
+        "similarity": 0.42282724380493164
+      },
+      {
+        "content": "asolution,theirhighinvestmentcostsandthepossiblenegativesocialimpactmake\nthem not acceptable to many airports. Thus, airports may find it challenging to de-\ncidewhethertoreplacetheircurrentworkforcewithrobots.Amoreacceptableand\nefficientsolutioncouldbetoadoptasemi-automatedsystemthatretainsthehuman\n1Thiswasthevalueof2022,justaftertherecentCOVID-19pandemic.\nxv",
+        "document": "Airport Baggage Handling Systems Using the Baggage.pdf",
+        "page": 16,
+        "similarity": 0.420706105849329
+      },
+      {
+        "content": "is not surprising, therefore, that even with advances in modern technology accidents\nand mishaps still happen in airports. It is therefore necessary that more emphasis is\nAirport Engineering: Planning, Design, and Development of 21st Century Airports 351\nNorman J. Ashford, Saleh Mumayiz and Paul H. Wright\nCopyright © 2011 John Wiley & Sons, Inc.",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 364,
+        "similarity": 0.41739028692245483
+      },
+      {
+        "content": "Author\nDr Brahim Rekiek holds a license in Physics from the Universite´ Abdelmalek\nEssaadi,Morocco,obtainedin1993.Additionally,heearnedaD.E.Sin“Production\nEngineering and Robotics” in 1996 from the prestigious Universite´ Libre de\nBruxelles. Building upon his educational accomplishments, he successfully earned\nhisPh.D.degreeinartificialintelligencefromthesameuniversityin2000.\nWith over 20 years of experience, he has made significant contributions to the\nfieldwhileworkingatrenownedcompaniessuchasFabricomAirportsSystemsand\nBeumer, among others. Throughout his career, he has focused on various sectors\nincludingairportBHS,Automotive,andLogistics.Hehasplayedaroleindesigning\nand analysing baggage handling systems for airports worldwide, undertaking tasks",
+        "document": "Airport Baggage Handling Systems Using the Baggage.pdf",
+        "page": 22,
+        "similarity": 0.41378283500671387
+      },
+      {
+        "content": "a period of more stable growth, it still presents an image of rapid change and flux, and\nat individual airports demand variations can be dramatic. Consequently, the design of\naircargoterminalsissusceptibletorapidmodificationofparametersduetodemandand\ntechnological changes. Design flexibility, therefore, is generally felt to be imperative.\nAn industry forecast is shown in Figure 11.1.\n11.2 FUNCTIONS OF CARGO TERMINAL\nIn many ways, the functions performed by the cargo terminal are very similar to those\nthat take place in the passenger terminal, even though the aspects of the two areas\nAirport Engineering: Planning, Design, and Development of 21st Century Airports 457\nNorman J. Ashford, Saleh Mumayiz and Paul H. Wright\nCopyright © 2011 John Wiley & Sons, Inc.",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 470,
+        "similarity": 0.4113562229679891
+      },
+      {
+        "content": "Airport Engineering: Planning, Design, and Development of 21st Century Airports 573\nNorman J. Ashford, Saleh Mumayiz and Paul H. Wright\nCopyright © 2011 John Wiley & Sons, Inc.",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 586,
+        "similarity": 0.4110374695681025
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": "what content this chatbot is having"
+  },
+  {
+    "role": "assistant",
+    "content": "I apologize, but the information you're asking about is not available in the provided technical documentation.\n\n📚 Available Documents:\n• Airport Engineering Planning Design and Development.pdf\n• airport_operations.pdf\n• computerized maintenance management systems.pdf\n• Airport Baggage Handling Systems Using the Baggage.pdf\n• scada_manual.pdf\n\nThese documents focus on aviation operations, SCADA systems, and airport management.\n\n💡 Please feel free to ask questions related to:\n• Airport operations and procedures\n• SCADA systems and controls\n• Aviation safety and regulations\n• Aircraft handling and maintenance\n• Airport infrastructure and design\n\nHow can I help you with aviation-related topics?",
+    "sources": [
+      {
+        "content": "021–501\ntnellecxE\nenontsomlA\nyrevotenoN\nelbatiustoN\ndoogotriaF\nyllevargrodnaS\nPS\nthgils\nylroop,dnas\ndedarg\n003–002\n02–01\n511–001\ntnellecxE\nenontsomlA\nyrevotenoN\nrooP\ndoogotriaF\nyllevargrodnaS\nUS\nthgils\nroop,dnas\nton,ylmrofinu dedargylbatius\n003–002\n04–02\n531–021\nroopotriaF\nthgilsyreV\nhgihotthgilS\nelbatiustoN\ndooG\nytlisrodnasytliS\nMS\ndnasyllevarg\n)faelrevodeunitnoc(\n513",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 526,
+        "similarity": 0.14511097967624664
+      },
+      {
+        "content": "While TACAN is independent of conventional VOR facilities, it is similarly\nconstrainedtoline-of-sight operation. The jet route high-altitude airwayshave\nbeen created for use with VORTAC stations separated by long distances. In\n1983,theFAAinstalledthefirstof950newsolid-stateVORTACstobelocated\nin the United States, replacing the old vacuum tube equipment.\nMarkerBeacons. Marker beacons identify a specific location in airspace along an\nairway by means of a 75-MHz directional signal which transmits to aircraft\nflying overhead. They are used to determine the exact location on a given\ncourse.Markersareprimarilyusedin instrument approachesor departurepro-\ncedures, as holding fixes or position reporting points, in conjunction with en\nroute navigational aids or instrument landing systems.",
+        "document": "Airport Engineering Planning Design and Development.pdf",
         "page": 207,
-        "similarity": 0.5273581900405346
+        "similarity": 0.12159861624240875
       },
       {
-        "content": "manager’s office is normally equipped with telecommunications systems that duplicate the\nAOCC positions from where situations also could be handled, when necessary. Finally, the\nsituation room is intended to serve primarily as a meeting point for senior airport\nmanagement personnel and other entities involved in the handling of emergencies and",
+        "content": "of an airport bulldozer driver who immediately cleared a temporary road through an\notherwise impassable wooded ravine.\n12.6 Communication and Alarm Requirements\nAn aircraft emergency is an unplanned event, and accidents are very rare occurrences.\nConsequently, a reliable rescue and firefighting operation can be achieved only with a\ndefined chain of command linked with effective communications. For each airport, the\nindividual requirements for the communications network are likely to be different; however,\nin general, there must be provision for the following:\nDirect communication between the emergency activation authority (usually ATC) and\nthe airport fire station. This should be in the form of a two-way radio network and a",
         "document": "airport_operations.pdf",
-        "page": 477,
-        "similarity": 0.4650372266769409
+        "page": 355,
+        "similarity": 0.09329819312117249
       },
       {
-        "content": "Organization (ISO) defines an EMS as a tool that enables an organization to\n• Identify and control the environmental impact of its activities, products or\nservices, and to\n• Improve its environmental performance continually, and to\n• Implement a systematic approach to setting environmental objectives and\ntargets, to achieving these and to demonstrating that they have been achieved5",
-        "document": "airport_operations.pdf",
-        "page": 545,
-        "similarity": 0.4596389073025857
+        "content": "• Turbulence exists due to terrain or meteorological conditions.\nTheVASIsysteminstallationbasicallyconsistsoftwowingbarsoflightsoneither\nside of the runway. Figure 6.10(a) depicts the installation and locations of these bars:\none set of bars 500ft from the runway end (downwind bars) and a second set of bars",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 227,
+        "similarity": 0.0802133631579065
       },
       {
-        "content": "the preestablished work priorities they set for their subordinates. Moreover, to a certain\nextent, the center’s approach can be perceived as going against the sacred rule of the unity\nof command by instituting a formal matrix management system (i.e., operational versus\nadministrative/functional expertise management).\nThere are several proven methods to overcome these problems, including an",
+        "content": "572 Airport Access\n3. Leigh, F., M. Coogan, and MarketSense, Improving Public Transport Access to Large\nAirports,TCRP Report No. 62, Washington,DC: Transportation Research Board, 2000.\n4. Ashford, N., and P. McGinity, Access to Airports Using High Speed Ground Transport,\nHighSpeedGroundTransportation,Vol. 9, No. 1, Spring 1975.\n5. Whitlock,E.M.,andD.B.Saunders,AirportAccess/EgressSystemsStudy,WilburSmith\nand Associates, DOT-TSC-OST-73 32, September 1973.\n6. Dajani, J. S., and W. J. Schneider, Role of Helicopters in Airport Access, Transportation\nEngineeringJournal,New York: American Society of Civil Engineers, November 1978.\n7. Planning and Design Guidelines for Airport Terminal Facilities, AC 150/5360-13,\nWashington, DC: Federal Aviation Administration, Department of Transportation, April",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 585,
+        "similarity": 0.07716310024261475
+      },
+      {
+        "content": "clearways designated for takeoff. ICAO recommends particular attention to providing ready\naccess to approach areas up to 3,300 feet (1,000 m) from the threshold. It is common for\nairport operators to assume that provided that obstruction clearances are observed in the\napproach and takeoff areas, the airport’s responsibilities have been met. The crash of a\nDC9 at Toronto on June 26, 1978, is an example of the very severe problems of rescue\nwhere terrain beyond the runway is virtually impassable. Rescue vehicles were able to\nreach the site in the clearway beyond the runway threshold only through the quick thinking\nof an airport bulldozer driver who immediately cleared a temporary road through an\notherwise impassable wooded ravine.\n12.6 Communication and Alarm Requirements",
         "document": "airport_operations.pdf",
-        "page": 480,
-        "similarity": 0.45547887682914734
+        "page": 355,
+        "similarity": 0.07287655025720596
+      },
+      {
+        "content": "technical principles of operation of TACAN are quite different from those of\nVOR-DME, from the pilot’s viewpoint, the outputs or information received\naresimilar. Operatingin conjunctionwith fixedor mobile groundtransmitting\nequipment, the airborne unit translates a UHF pulse into a visual presentation\nofbothazimuthanddistanceinformation.Ithasatripleoutput:VORazimuth,\nTACAN azimuth, and range. Although it consists of more than one compo-\nnent, operating at more than one frequency, VORTAC is considered to be an\nintegrated navigational unit providing three simultaneous information outputs.\nWhile TACAN is independent of conventional VOR facilities, it is similarly\nconstrainedtoline-of-sight operation. The jet route high-altitude airwayshave",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 207,
+        "similarity": 0.059712544083595276
+      },
+      {
+        "content": "that is lower than the pressure on the lower surface. This produces a tendency for air\nto flow up around the wing tips. At the same time, the lift generated by the pressure\ndifferentialmustbebalancedbyadownwardcomponentofmomentumintheairstream\nbehind the wing. The combined effect of these forces is for a pair of vortices to roll\nup behind and below each wing tip, the radii of the cones increasing with distance\ndownstream. The effect of these vortices is severe enough to have caused a DC-9 to\n◦\nbank through 90 while attempting to follow a DC-10 in to land (11).\nMuchresearchhasbeendonetocontaintheeffectofthevortices.Themostpromis-\ning approach—namely, to prevent the vortices from developing—requires modifying",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 110,
+        "similarity": 0.05549668604175062
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": "what is github"
+  },
+  {
+    "role": "assistant",
+    "content": "I apologize, but the information you're asking about is not available in the provided technical documentation.\n\n📚 Available Documents:\n• Airport Engineering Planning Design and Development.pdf\n• airport_operations.pdf\n• computerized maintenance management systems.pdf\n• Airport Baggage Handling Systems Using the Baggage.pdf\n• scada_manual.pdf\n\nThese documents focus on aviation operations, SCADA systems, and airport management.\n\n💡 Please feel free to ask questions related to:\n• Airport operations and procedures\n• SCADA systems and controls\n• Aviation safety and regulations\n• Aircraft handling and maintenance\n• Airport infrastructure and design\n\nHow can I help you with aviation-related topics?",
+    "sources": [
+      {
+        "content": "other. It is defined as an approach to problem solving, by viewing “problems” as\nparts of an overall system, rather than reacting to present outcomes or events. The\nsystemicthinkingisaframeworkbasedonthebeliefthatthesub-systemsofagiven\nsystem can best be understood in the context of their relationships with each other\nandwithothersystems,ratherthaninisolation(viewsystemsinaholisticmanner).\nThe analytical approach is interested in “of what is done?”. It works with the\nmicroscope to cut offa general system into less complex parties, whereas, the sys-\ntemicapproachrepliestothequestion“Howthisisdone?”.Itintegratesthenotionof\nDOI:10.1201/9781003432920-12 129",
+        "document": "Airport Baggage Handling Systems Using the Baggage.pdf",
+        "page": 158,
+        "similarity": 0.20385368993514397
+      },
+      {
+        "content": "for one of the three reasons: Akey member, or members of a project\nteam may resign, be terminated, or transferred. With a sophisticated\nproject like the CMMS, continuity is a key factor in its success. In order\nto establish that continuity, and maintain it in the event of personnel\n195\nCopyright © 2006 by The McGraw-Hill Companies, Inc. Click here for terms of use.",
+        "document": "computerized maintenance management systems.pdf",
+        "page": 211,
+        "similarity": 0.1571229602621247
+      },
+      {
+        "content": "187. J. Vom Brocke and M. Rosemann. Handbook on business process management 2 -\nStrategicalignment,governance,peopleandculture. Springer-Verlag,2010.\n188. S.Wang,J.Wan,D.Zhang,D.Li,andC.Zhang. Towardssmartfactoryforindustry\n4.0:aself-organizedmulti-agentsystemwithbigdatabasedfeedbackandcoordina-\ntion. ComputerNetworks,101:158–168,2016.\n189. M. Weske. Business process management: Concepts, languages, architectures.\nSpringer-Verlag,2012.\n190. M.WidmerandA.Hertz. Anewheuristicmethodfortheflowshopsequencingprob-\nlem. EuropeanJournalofOperationalResearch,41(2):186–193,1989.\n191. A.Willihnganz. Softwarethatwritessoftware:Geneticprogrammingisthenewfron-\ntier: A human creates the environment, and a computer hacks the code. salon.com,\n1999.",
+        "document": "Airport Baggage Handling Systems Using the Baggage.pdf",
+        "page": 228,
+        "similarity": 0.1489686788357889
+      },
+      {
+        "content": "the team as they work with hundreds of companies.\nInvolving your employees in the implementation process enables you\nto break down their resistance to computers and build enthusiasm for\nCMMS as a tool to facilitate their work.\nSystematic, periodic reports should be submitted to upper-level man-\nagement keeping them informed of progress, or lack of it. If it is neces-\nsary to replace members of the project team, new team members can be\nintroduced with a minimum of disruption to maintain the continuity of\nthe project.\nExternal resources. Considering outside consulting company to help\nimplement the CMMS package is a viable option. An experienced imple-\nmentation consultant can help guide you through the implementation\nby facilitating the decision-making process and helping you to avoid",
+        "document": "computerized maintenance management systems.pdf",
+        "page": 214,
+        "similarity": 0.12407662730495694
+      },
+      {
+        "content": "196 Chapter Five\nchanges, each step of the project should be fully and accurately\ndocumented.\n■ Employee resistance. Often, employee resistance to computers is not\nconsidered when management decides to acquire a CMMS. This prob-\nlem can be more devastating than losing key members of the project\nteam. Employees may accept the computerization enthusiastically or\nbecome hostile to the idea. Management may look at the CMMS as a\ntool to help employees in their work, and in turn enhance the bottom-\nline. Employees, on the other hand, may view the CMMS as an intru-\nsion, threatening their professional and personal security.\nUsers need to understand that there will be a transition process,\nthe current process will change and at least in the short term it may",
+        "document": "computerized maintenance management systems.pdf",
+        "page": 212,
+        "similarity": 0.10837321181616721
+      },
+      {
+        "content": "128 Chapter Four\nProgramming language. Normally, you will not have a choice of pro-\ngramming languages. However, if there is a difference in programming\nlanguage between competing products, the programming language used\nmay be a factor of your choice. Aprogram written in one language may\nperform better than another. This can be a significant factor if you are\ndealing with thousands of records.\nSystem security. Security is a very important function of a CMMS\npackage. A multilevel password protected security system can define\nexactly what each user is permitted to access, edit, or run. Agood secu-\nrity system allows the following:\n■ Make different screens for different users (e.g., a person just making\na work request would view a very simple work order screen compared",
+        "document": "computerized maintenance management systems.pdf",
+        "page": 144,
+        "similarity": 0.09473141180890199
+      },
+      {
+        "content": "sion, threatening their professional and personal security.\nUsers need to understand that there will be a transition process,\nthe current process will change and at least in the short term it may\nbe painful. CMMS projects that promise efficiency improvements are\noften looked upon suspiciously by technicians as excuses for\ndownsizing.\nCMMS projects fail not necessarily because of the system, but rather\nas a result of refusal by the users to use it. Ultimately, success will\nbe determined by the amount of system usage. Not using the system,\nobviously leads to failure.\nEmployee resistance to the computerization does not have to pre-\nvent or delay your project. Thoroughly plan your implementation\nphase. Be familiar with the new system. Actively lead your employees.",
+        "document": "computerized maintenance management systems.pdf",
+        "page": 212,
+        "similarity": 0.08780213587233165
+      },
+      {
+        "content": "copy method such as a printed alarm report.\n12-2. The first level of security is called \"access control.\" People who have no need to get\nclose to the process or process control are physically kept away. The second level is\nto have a key, either hardware-or software-based, that must be used to get to the\npart of the system that allows control changes to be made.\n12-3. The process control operators, the instrument maintenance technicians, and the\nsystems or control engineers were identified as examples of three levels of security.\n12-4. User-friendly systems are designed to make understanding system operation very\neasy. This is positive insofar as it relates to access by authorized personnel. It is\nnegative with respect to security. Unauthorized people can often deduce how to",
+        "document": "scada_manual.pdf",
+        "page": 198,
+        "similarity": 0.08348236230331152
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": "i want to learn about airport engineering planning design and Development so give me roadmap to cover all the things"
+  },
+  {
+    "role": "assistant",
+    "content": "To effectively cover airport engineering planning, design, and development, a comprehensive roadmap would involve several key phases and considerations, focusing on understanding unique technical characteristics, detailed forecasting, comprehensive layout planning, simulation-based analysis, and robust implementation strategies, all while adhering to regulatory requirements.\n\nHere is a roadmap based on the provided technical documentation:\n\n### Roadmap for Airport Engineering Planning, Design, and Development:\n\n1.  **Foundational Understanding and Project Definition:**\n    *   **Understand Technical Characteristics:** It is crucial for the airport planner and designer to understand the unique and specific technical characteristics of different approaches and how to utilize them effectively. (Source: Airport Engineering Planning Design and Development.pdf, Page 615)\n    *   **State Project Purpose:** Clearly define the statement of purpose for the airport project. (Source: Airport Engineering Planning Design and Development.pdf, Page 37)\n    *   **Analyze Air Travel Environment:** Describe the existing air travel environment and the unique situation of the specific airport. (Source: Airport Engineering Planning Design and Development.pdf, Page 37)\n\n2.  **Forecasting and Requirements Analysis:**\n    *   **Integrated Forecasting Process:** Ensure the forecast being presented relates to the entire airport forecasting process, not just an isolated step. (Source: Airport Engineering Planning Design and Development.pdf, Page 37)\n    *   **Forecast Methodology:** Detail the forecast methodology, including the approach, assumptions used, model mechanics, and the rationale for adopting a particular approach. (Source: Airport Engineering Planning Design and Development.pdf, Page 37)\n    *   **Demand and Capacity Analysis:** Conduct a thorough analysis of forecast demand, existing capacity, and facility requirements. This includes \"Forecast-Demand-Capacity-Facility-Requirements Analysis.\" (Source: Airport Engineering Planning Design and Development.pdf, Page 174)\n    *   **Document Aeronautical Demand:** Document future aeronautical demand to support municipal or local decisions. (Source: Airport Engineering Planning Design and Development.pdf, Page 163)\n\n3.  **Airport Layout Plan (ALP) and Design Development:**\n    *   **Develop the Airport Layout Plan (ALP):** The ALP is a central drawing that integrates various aspects of the airport. It includes:\n        *   **Airspace & Inner Airport Drawing** (Source: Airport Engineering Planning Design and Development.pdf, Page 174)\n        *   **Approach Surface Plan** (Source: Airport Engineering Planning Design and Development.pdf, Page 174)\n        *   **Airport Terminal Area Noise Map** (Source: Airport Engineering Planning Design and Development.pdf, Page 174)\n        *   **Airport Land Use Plan & Parking Plan** (Source: Airport Engineering Planning Design and Development.pdf, Page 174)\n        *   **Airport Access & Property Map** (Source: Airport Engineering Planning Design and Development.pdf, Page 174)\n    *   **Detail Facility Planning and Modeling:** The ALP development also encompasses modeling and planning for specific areas:\n        *   Aircraft Movements\n        *   Airfield – Airspace – Runways – Taxiways\n        *   NAVAIDS (Navigational Aids)\n        *   Airspace Fixes-Routes\n        *   Passenger Terminal Space and Passenger Processing\n        *   Baggage System\n        *   Airside – Processing – Gates\n        *   Landside Cargo Processing\n        *   Air Freight & Cargo Processing & Storage\n        *   Airside Apron Parking (Source: Airport Engineering Planning Design and Development.pdf, Page 174)\n    *   **Graphic Presentation:** Provide an effective graphic presentation of the airport's development and anticipated land uses in its vicinity. (Source: Airport Engineering Planning Design and Development.pdf, Page 163)\n    *   **Infrastructure Development:** Plan for increasing airport capacity through infrastructure development, which is a constant feature of aviation planning. (Source: Airport Engineering Planning Design and Development.pdf, Page 282)\n\n4.  **Modeling and Simulation Analysis:**\n    *   **Utilize Simulation:** Integrate simulation as an increasingly important subject in airport planning. (Source: Airport Engineering Planning Design and Development.pdf, Page 12)\n    *   **Follow Simulation Study Development Process:**\n        1.  System Evaluation & Problem Identification\n        2.  Problem Formulation & Relationship Model Building\n        3.  Project Scoping and Planning\n        4.  Data Acquisition & Abstraction\n        5.  Model Translation\n        6.  Model Verification\n        7.  Model Validation\n        8.  Planning & Execution of Experiments\n        9.  Prototyping & Experiment Implementation\n        10. Analysis of Results\n        11. Study Documentation & Project Implementation (Source: Airport Engineering Planning Design and Development.pdf, Page 621)\n    *   **Leverage Simulation Advantages:** Recognize that simulation is quicker and cheaper than building a real system, can be used repeatedly for design analysis, and can analyze proposed systems despite data scarcity. (Source: Airport Engineering Planning Design and Development.pdf, Page 621)\n\n5.  **Implementation Planning and Program Development:**\n    *   **Facilities Implementation Plan:** Develop a plan for the implementation of facilities. (Source: Airport Engineering Planning Design and Development.pdf, Page 174)\n    *   **Airport Capital Development Program:** Define the overall capital development program for the airport. (Source: Airport Engineering Planning Design and Development.pdf, Page 174)\n    *   **Realistic Schedule:** Establish a realistic schedule for implementing the proposed development, especially for the short-term capital improvement program. (Source: Airport Engineering Planning Design and Development.pdf, Page 163)\n    *   **Achievable Financial Plan:** Propose a financial plan that can support the implementation schedule. (Source: Airport Engineering Planning Design and Development.pdf, Page 163)\n    *   **Project Definition for Environmental Evaluation:** Provide sufficient project definition and detail for subsequent environmental evaluations required before project approval. (Source: Airport Engineering Planning Design and Development.pdf, Page 163)\n\n6.  **Compliance, Documentation, and Review:**\n    *   **Compliance Analysis Assurance:** Ensure all plans undergo compliance analysis and assurance. (Source: Airport Engineering Planning Design and Development.pdf, Page 174)\n    *   **Regulatory Adherence:** Present a plan that adequately addresses issues and satisfies local, state, and federal regulations. (Source: Airport Engineering Planning Design and Development.pdf, Page 163)\n    *   **Environmental Impact:** Consider and update plans based on current thinking and regulations in the area of environmental impact. (Source: Airport Engineering Planning Design and Development.pdf, Page 12)\n    *   **Documentation:** Document policies and future aeronautical demand. (Source: Airport Engineering Planning Design and Development.pdf, Page 163)\n\nThis roadmap incorporates the critical elements mentioned in the provided documents, guiding the planner and designer through the complex process of airport engineering, from initial concept to implementation and compliance.",
+    "sources": [
+      {
+        "content": "synchronized. Moreover, it is important for the airport planner and designer to under-\nstand the unique and specific technical characteristics of how and when to utilize one\nversus all others.\n∗RefertotheTRBwebsiteforTRBsimulationworkshope-circularsandTRBrecords:http://www.trb.org/\nMain/Home.aspx.\n602 Airport Engineering: Planning, Design, and Development of 21st Century Airports\nNorman J. Ashford, Saleh Mumayiz and Paul H. Wright\nCopyright © 2011 John Wiley & Sons, Inc.",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 615,
+        "similarity": 0.6848657147466288
+      },
+      {
+        "content": "DEVELOPMENT & ECONOMIC IMPACT ANALYSIS &\nALTERNATIVES ANALYSES COMPLIANCE\nANALYSIS ASSURANCE\nAIRPORT LAYOUT PLAN\nAirspace & Inner Airport Airport Land Airport Airport\nAirport Layout\nApproach Surface Terminal Area Use Plan & Access & Property\nDrawing\nDrawing Plan Noise Map Parking Plan Map\nFACILITIES IMPLEMENTATION PLAN of\nAIRPORT CAPITAL DEVELOPMENT PROGRAM\nYTICAPAC\nDNAMED\nYTILICAF\nEVITANRETLA\nGNITSACEROF\nSISYLANA\nSTNEMERIUQER\nSISYLANA\nAircraft Movements\nAirfield – Airspace Passenger Terminal Space Cargo Terminal Ground Transport\nSimulation Analysis-Modeling Planning Modeling-Planning\n– syawnuR -syawixaT SDIAVAN ecapsriA sexiF-setuoR edisdnaL regnessaP gnissecorP egaggaB metsyS edisriA -gnissecorP setaG edisdnaL ograC gnissecorP thgierF\nriA\n& egarotS gnissecorP ograC\nedisriA\nnorpA gnikraP",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 174,
+        "similarity": 0.6505417615498174
+      },
+      {
+        "content": "statistical tests, may not be enough for acceptance.\nThe airport planner must also cover the following aspects (3):\n• Statement of purpose for the airport project and the forecast\n• Relation of the forecastbeing presentedto the entire airport forecastingprocess,\nand not just an isolated step\n• Description of the air travel environment and the unique airport situation\n• Forecast methodology, including approach, use of assumptions, model mechan-\nics, and reasons to adopt the particular approach",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 37,
+        "similarity": 0.6404158258685974
+      },
+      {
+        "content": "enables strategic thinkers to build flexibility into their plans so that they can smoothly\naccommodate what actually happens.\nAirport capacity increases through infrastructure development have been a\nconstant feature of aviation planning, and major new airports and runways have\ncome into being regularly and undoubtedly will continue to do so. During the last\n40 years several remarkable airport projects have been executed in the United States,\nsuch as the construction of Dallas/Fort Worth, Denver International, Orlando, and\nWashington/Dulles. Internationally, many modern airports were built following the\nlatest in airport planning and design concepts, such as Singapore, Hong Kong, Kuala\nLampur, Seoul, and Athens (30).",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 282,
+        "similarity": 0.6239369883499746
+      },
+      {
+        "content": "608 Airport Modelingand Simulation\nSystem Evaluation &\nProblem Identification\nProblem Formulation &\nRelationship Model Building\nProject Scoping and Planning\nData Acquisition & Abstraction\nModel Translation\nModel Verification\nModel Validation\nPlanning & Execution of Experiments\nPrototyping & Experiment Implementation\nAnalysis of Results\nStudy Documentation & Figure 15.2 Simulation study development\nProject Implementation process.\nAdvantages of simulation include:\n• It is always quicker and cheaper to develop a simulation than to build the real\nsystem.\n• Once a model is built, it can be used repeatedly to analyze the proposed design,\npolicies, or problem at hand.\n• Simulationmethodscanbeusedtoanalyzeaproposedsystemdespitethescarcity\nof real-world data.",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 621,
+        "similarity": 0.6155877480261187
+      },
+      {
+        "content": "ronmental investigation of concepts and alternatives.\n3. Provide an effective graphic presentation of the development of the airport and\nanticipated land uses in the vicinity of the airport.\n4. Establish a realistic schedule for the implementation of the development pro-\nposed in the plan, particularly the short-term capital improvement program.\n5. Propose an achievable financial plan to support the implementation schedule.\n6. Provide sufficient project definition and detail for subsequent environmental\nevaluations that may be required before the project is approved.\n7. Presentaplanthat adequatelyaddressesthe issues andsatisfieslocal, state,and\nfederal regulations.\n8. Documentpoliciesandfutureaeronauticaldemandtosupportmunicipalorlocal",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 163,
+        "similarity": 0.5972548963275709
+      },
+      {
+        "content": "the passengers and those who accompany them, the airline, and the airport operator.\n414 Airport Engineering: Planning, Design, and Development of 21st Century Airports\nNorman J. Ashford, Saleh Mumayiz and Paul H. Wright\nCopyright © 2011 John Wiley & Sons, Inc.",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 427,
+        "similarity": 0.5891899397244998
+      },
+      {
+        "content": "xii Preface\nthe basis of evaluating airport performance and as the primary determinant of air-\nport improvement, expansion, and development. Chapters 10 and 12 incorporate the\nrecently published procedures and practices relating to spreadsheet design using new\nTransportationResearchBoard(TRB-AirportCooperativeResearchProgramandFAA\nmethodsforpassengerterminalplanningandpavementdesign.NewChapters15and16\nhave been included to cover matters relating to the increasingly important subjects of\nsimulation and the developments of the airport city concepts. Chapter 17 has been\ntotally revamped and updated to describe current thinking and regulations in the area\nof environmental impact. Elsewhere, all chapters have been updated to 2010 standards",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 12,
+        "similarity": 0.5740778192328118
+      }
+    ]
+  },
+  {
+    "role": "user",
+    "content": "thanks for the roadmap"
+  },
+  {
+    "role": "assistant",
+    "content": "I apologize, but the information you're asking about is not available in the provided technical documentation.\n\n📚 Available Documents:\n• Airport Engineering Planning Design and Development.pdf\n• airport_operations.pdf\n• computerized maintenance management systems.pdf\n• Airport Baggage Handling Systems Using the Baggage.pdf\n• scada_manual.pdf\n\nThese documents focus on aviation operations, SCADA systems, and airport management.\n\n💡 Please feel free to ask questions related to:\n• Airport operations and procedures\n• SCADA systems and controls\n• Aviation safety and regulations\n• Aircraft handling and maintenance\n• Airport infrastructure and design\n\nHow can I help you with aviation-related topics?",
+    "sources": [
+      {
+        "content": "promisingregions(diversificationsearchstrategy)(seeFigure14.8)[196].\nFigure14.8 TabuSearchtechnique\nThesuccessoftheTStechniquescanbeseenbytheimprovedsolutionstoprob-\nlemsinschedulingandsequencingwithdifferentsizesproblemssuchasflowshop\nscheduling[131,176,190],machinescheduling[61,102],routing[53,114],inGPS\nsurveying[73],etc.",
+        "document": "Airport Baggage Handling Systems Using the Baggage.pdf",
+        "page": 188,
+        "similarity": 0.32420098781585693
+      },
+      {
+        "content": "withoutrequiringtheoperationitselftoberevisited,aslongastherequisiteperformance\nisprovidedbytheRNAVsystem.TheICAOisevaluatingothermeansformeetingthe\nrequirements of the navigation specifications.\nThenavigationperformancerequiredfromtheRNAVsystemispartofthenaviga-\ntionspecification.Todetermineseparationminimaandroutespacing,airspaceplanners\nfully exploit that part of the navigation specification which describes the performance\nrequired from the RNAV system. Airspace planners also make use of the required per-\nformance (accuracy, integrity, availability, and continuity) to determine route spacing\nand separation minima. Within a definite airspace, PBN requirements will be affected\nby the CNS/ATM environments, navigational aid infrastructure, and functional and",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 221,
+        "similarity": 0.2752799093723297
+      },
+      {
+        "content": "spacerequirements,340–349 FormT-100,35,36\nArchaeologicalresources,721 Bypasstraffic,472\nArchitecturalresources,721\nAreanavigation(RNAV),205–211 CADsimulationsofparkingmovements,346\nDME/DMERNAV,207 Calculationofaircraftdelay,260–264\nFAA/ICAORNAVcriteria,207 CaliforniaCorridorstudy,66\nPrecisionareanavigation(P-RNAV),205–211 CaliforniaBearingRatio,521–527\nRNAVX,207 CanadianTransportCommission,64\nArea-equivalentmethod,639 Capacitiesoffreightandcombi-aircraft,469–470\nAtlantaHartsfieldAirport,424,544,547,551 Capacity,235\nATSAsecurity-relatedregulations,368 Capacityenhancementmeasures,267–268\nAutomatedradarterminalsystem(ARTS),181–201 efficientATC/ATMProcedure,267\nARTS,181,201 reducedrunwaycrossing,267\nARTS-III,201 reducedrunwayintersections,267",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 755,
+        "similarity": 0.26308026909828186
+      },
+      {
+        "content": "aretheresponsibility oftheairnavigationserviceprovider,nottheRNPsystem.\nExisting terminal airspace concepts are supported by RNAV applications currently\nused in Europe and the United States. The European terminal airspace RNAV is\nP-RNAV (precision RNAV). The U.S. terminal airspace application was aligned with\nthePBNconceptin2008andisnowcalledRNAV1.BasicRNP1hasbeendeveloped\nprimarily for application in nonradar, low-density terminal airspace. More RNP appli-\ncations are being developed for both en route and terminal airspace. For the airport",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 224,
+        "similarity": 0.26272815465927124
+      },
+      {
+        "content": "range:markerandbeacons,181,194,201,214 Localgovernmenttaxes,15\nvisual:lightsandmarkings,194 Logisticcurveformulation,40\nIntegrateddemandforecastframework,33 LogisticsManagementInstitute(LMI),613,643,\nIntegratednoisemodel,INM,FAA,724–725 644\nIntegratorfreightterminals,485–486 LondonAirportsystem,129\nInternalcirculationinpassengerterminals,416 LondonGatwickInternationalAirport,129,422,\nInternationalAirTransportAssociation(IATA),4,\n547,551,554\n47,50\nLondonHeathrowAirport,129,424,544,547,551,\nInternationalCivilAviationOrganization(ICAO),\n554,555,673\n1–3,213–214,215\nLondonStanstedInternationalAirport,129,562\nInternationalConferenceforAirNavigation\nLongitudinalgrades\n(ICAN),2\nforrunways,332–335\nInternationalgateways,107\nfortaxiways,336\nIntersectingrunways,298\nLoosecargo,469\nInvernessAirport,450",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 760,
+        "similarity": 0.24379641507235994
+      },
+      {
+        "content": "740 Index\nAirfreightdemand(continued) purpose,363\nnationalprojections,66 structureandcontent,364\nregionalprojections,66 trainingmethodsandequipment,365\nAirlinedelay,causesof,272–273 trainingprogram,365\nAirlinederegulation,47 verificationandconformity,365\nAirlineflightfrequency,57 AirportGeographicInformationSystems(GIS),\nAirlinehub-and-spokesystem,110,113 653–655\nAirlinehubbingoperation,25,26 AirportImprovementProgram(AIP),17,109,115\nAirLinePilotsAssociation,4 Airporthubs\nAirlinesDeregulationActof1978,108 largehub,120\nAirlineandsupportfacilitiesinterminals, mediumhub,120\n416,432 nonhub,120\nAirlineyield,36–40,47,57 smallhub,120\nAiroperationareas(AOA),368 Airportinfrastructureandinformationmanagement,\nAirpassengertripassignment,48 127",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 753,
+        "similarity": 0.2371027030287567
+      },
+      {
+        "content": "total flight time.\n• RNAV 2 requires a total system error of not more than 2 nautical mi for 95% of\ntotal flight time.\nAn RNAV specification is designated as RNAV X, for example, RNAV 1, where\nX refers to the lateral navigation accuracy in nautical miles, which is expected to be\nachieved at least 95% of the flight time by the population of aircraft operating within\nthe airspace, route, or procedure\nTheFAARNAVCriterionisconsistentwithICAOguidanceontheimplementation\nof RNAV1 and RNAV2 operations. The ICAO has continued to harmonize RNAV\nperformance-based navigation criteria.\nThe DME is the facility to support RNAV operations along a specific route. When\nunavailable,thenavigationservicebecomesinsufficientforDMEtosupporttheRNAV.",
+        "document": "Airport Engineering Planning Design and Development.pdf",
+        "page": 220,
+        "similarity": 0.23464436829090118
+      },
+      {
+        "content": "175. D.Symonds. Vehicleforchange. Annualshowcase20222021.\n176. E.Taillard. Someefficientheuristicmethodsfortheflowshopsequencingproblem.\nEuropeanJournalofOperationalResearch,47(1):65–74,1990.\n177. A.N.Tara˘u,B.DeSchutter,andJ.Hellendoorn. Predictivecontrolforbaggagehan-\ndlingsystemsusingmixedintegerlinearprogramming.InProceedingsofthe5thIFAC\nInternationalConferenceonManagementandControlofProductionLogistics(MCPL\n2010),pages16–21,Coimbra,Portugal,2010.\n178. R.K.TaylorandD.L.Anderson. Earlybagstoragesystem. Patentwo9510467(a1)\nmiusa,JERVISB.WEBBCOMPANY,1994.\n179. P.TothandD.Vigo. Vehiclerouting:Problems,methods,andapplications,2ndEdi-\ntion. Philadelphia,PA:SocietyforIndustrialandAppliedMathematics,2014.\n180. U. Lykkegaard and D. Fransen. Loading of aircraft baggage containers. Patent",
+        "document": "Airport Baggage Handling Systems Using the Baggage.pdf",
+        "page": 227,
+        "similarity": 0.22947131097316742
       }
     ]
   }

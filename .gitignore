@@ -1,71 +1,70 @@
-# Byte-code files
-*.pyc
+# Python
 __pycache__/
-##
-# Directories
-.venv/
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Distribution / Packaging
+*.py[cod]
+*$py.class
+*.so
 .Python
 build/
 develop-eggs/
 dist/
+downloads/
 eggs/
+.eggs/
 lib/
 lib64/
 parts/
 sdist/
 var/
 wheels/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
-*.manifest
-*.whl
+*.egg
 
-# PyInstaller
-# See https://github.com
-# for pyinstaller specifics
-*.cible
-*.layout
-*.pyi
-*.pylib
-*.pys
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
 
-# Unit test / coverage
-.coverage
-.tox/
-.pytest_cache/
-nosetests.xml
-coverage.xml
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# IDE specific files
-.idea/  # For PyCharm
-.vscode/ # For VS Code
+# Jupyter Notebook
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+notebooks/archive/
 
-# Environment variables
+# Data Files
+data/uploaded_pdfs/*.pdf
+data/raw_pdfs/*.pdf
+data/*.json
+!data/.gitkeep
+
+# Environment Variables
 .env
-.flaskenv
+.env.local
 
-# Miscellaneous
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
 *.log
-npm-debug.log*
-pip-log.txt
-pip-delete-this-arg.txt
 
-# Databases
+# Database
+*.db
 *.sqlite
-*.sqlite3
 
-# OS generated files
-.DS_Store # Mac
-
-Changes
-Future Planning
-
+# Temporary files
+*.tmp
+temp/
+.env.example
+PRODUCTION_CHECKLIST.md
 requirements_fixed.txt
+Changes/
+Future Planning/
+cleanup_project.py
