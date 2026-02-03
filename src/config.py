@@ -22,6 +22,7 @@ BM25_INDEX_PATH = DATA_DIR / "bm25_index.pkl"
 # DATABASE CONFIGURATION (PostgreSQL + pgvector)
 # ============================================================================
 DB_HOST = "localhost"
+# DB_HOST = "aviation-postgres"   # NOT localhost
 DB_PORT = 5432
 DB_NAME = "aviation_chatbot"
 DB_USER = "postgres"
