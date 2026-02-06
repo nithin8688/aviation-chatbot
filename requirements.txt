@@ -52,6 +52,15 @@ pandas==2.2.2
 python-dotenv==1.2.1
 tqdm==4.67.1
 
+# BM25 for hybrid search (sparse retrieval)
+rank-bm25>=0.2.2
+
+# Cross-encoder for re-ranking (from sentence-transformers)
+# Already installed with sentence-transformers, but listing explicitly
+# sentence-transformers includes cross-encoder models
+
+# Optional: For faster BM25 implementation
+python-Levenshtein>=0.12.0  # Uncomment if you want fuzzy matching
 
 # ============================================================================
 # OPTIONAL (for development/testing)

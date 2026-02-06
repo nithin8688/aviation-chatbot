@@ -1,6 +1,5 @@
 """
-Configuration file for Aviation Chatbot
-Supports both Local (FAISS) and Cloud (PostgreSQL + Gemini) modes
+Configuration file for Document QA Chatbot - OPTIMIZED
 """
 import os
 from pathlib import Path
@@ -12,180 +11,201 @@ PROJECT_ROOT = Path(__file__).parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
 RAW_PDF_DIR = DATA_DIR / "raw_pdfs"
 
-# Legacy file-based storage (for backward compatibility)
+# Legacy paths
 PAGES_PATH = DATA_DIR / "pages.json"
 CHUNKS_PATH = DATA_DIR / "chunks.json"
 FAISS_INDEX_PATH = DATA_DIR / "faiss_index.bin"
 BM25_INDEX_PATH = DATA_DIR / "bm25_index.pkl"
 
 # ============================================================================
-# DATABASE CONFIGURATION (PostgreSQL + pgvector)
+# .env LOADER
 # ============================================================================
-DB_HOST = "localhost"
-# DB_HOST = "aviation-postgres"   # NOT localhost
-DB_PORT = 5432
-DB_NAME = "aviation_chatbot"
-DB_USER = "postgres"
-DB_PASSWORD = "aviation123"
+def _load_dotenv():
+    env_path = PROJECT_ROOT / ".env"
+    if not env_path.exists():
+        return
+    with open(env_path, "r", encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            key   = key.strip()
+            value = value.strip().strip("'\"")
+            os.environ.setdefault(key, value)
 
-# Connection string for SQLAlchemy
+_load_dotenv()
+
+# ============================================================================
+# DATABASE CONFIGURATION
+# ============================================================================
+DB_HOST     = os.getenv("DB_HOST",     "localhost")
+DB_PORT     = int(os.getenv("DB_PORT", "5432"))
+DB_NAME     = os.getenv("DB_NAME",     "aviation_chatbot")
+DB_USER     = os.getenv("DB_USER",     "postgres")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+
+if DB_PASSWORD is None:
+    raise RuntimeError(
+        "\n❌  DB_PASSWORD is not set.\n"
+        "    1. Copy .env.example  →  .env\n"
+        "    2. Set DB_PASSWORD inside it\n"
+    )
+
 DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 # ============================================================================
-# EMBEDDING MODEL CONFIGURATION
+# EMBEDDING MODEL
 # ============================================================================
-EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
-EMBEDDING_DIMENSION = 384  # Dimension for all-MiniLM-L6-v2
-EMBEDDING_BATCH_SIZE = 64  # Increased from 32 for faster processing
+EMBEDDING_MODEL_NAME  = "all-MiniLM-L6-v2"
+EMBEDDING_DIMENSION   = 384
+EMBEDDING_BATCH_SIZE  = 64
 
 # ============================================================================
-# CHUNKING CONFIGURATION - OPTIMIZED FOR TECHNICAL DOCUMENTS
+# CHUNKING
 # ============================================================================
-CHUNK_SIZE = 800  # Increased from 400 for better context
-CHUNK_OVERLAP = 200  # Increased from 100 for more continuity
+CHUNK_SIZE    = 800
+CHUNK_OVERLAP = 200
 
 # ============================================================================
-# RETRIEVAL CONFIGURATION
+# RETRIEVAL - OPTIMIZED SETTINGS
 # ============================================================================
-TOP_K_RETRIEVAL = 8  # Increased from 5 for better coverage
-SIMILARITY_THRESHOLD = 0.65  # Lowered from 0.7 to include more relevant chunks
+TOP_K_RETRIEVAL      = 8
+SIMILARITY_THRESHOLD = 0.65
+
+# OPTIMIZATION: Disable slow features by default
+USE_HYBRID_SEARCH = False              # Fast with cached BM25
+HYBRID_ALPHA      = 0.6
+
+USE_HYDE          = False             # DISABLED - adds 200ms + API call
+HYDE_NUM_HYPOTHESES = 1
+
+USE_RERANKING     = False             # DISABLED - adds 500ms
+RERANK_MODEL      = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+RERANK_TOP_K      = 20
 
 # ============================================================================
 # LLM CONFIGURATION
 # ============================================================================
-
-# Local LLM (Ollama)
-LLM_MODEL_NAME = "llama3.2"  # Your existing Ollama model
+LLM_MODEL_NAME  = "llama3.2"
 LLM_TEMPERATURE = 0.1
 
-# Cloud LLM (Gemini)
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")  # Replace with your actual key
-GEMINI_MODEL = "gemini-2.5-flash"  # Options: gemini-1.5-pro, gemini-1.5-flash
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+if GEMINI_API_KEY is None:
+    raise RuntimeError(
+        "\n❌  GEMINI_API_KEY is not set.\n"
+        "    1. Copy .env.example  →  .env\n"
+        "    2. Set GEMINI_API_KEY inside it\n"
+    )
 
-# LLM Mode: "local" or "cloud"
-LLM_MODE = "cloud"  # Switch between local (Ollama) and cloud (Gemini)
+GEMINI_MODEL = "gemini-2.5-flash"
+LLM_MODE     = "cloud"
 
 # ============================================================================
-# SYSTEM PROMPT - OPTIMIZED FOR TECHNICAL DOCUMENTS WITH PRIVACY PROTECTION
+# SYSTEM PROMPT - RELAXED FOR BETTER COVERAGE
 # ============================================================================
-SYSTEM_PROMPT = """You are an expert Technical Documentation Assistant specializing in aviation, SCADA systems, airport operations, and related technical domains.
+# OPTIMIZATION: Removed overly strict off-topic detection
+# Now answers questions if ANY relevant chunks are found
+SYSTEM_PROMPT = """You are an expert Technical Documentation Assistant. You answer questions based on documents in your knowledge base.
 
-CRITICAL PRIVACY RULE:
-- If the user's question is NOT related to aviation, airports, SCADA, or the technical domains covered in your knowledge base, you MUST respond with the generic off-topic message
-- DO NOT reveal document contents, page numbers, or any internal details for off-topic questions
-- ONLY provide detailed answers for questions directly related to your specialized domains
+YOUR ROLE:
+1. Answer questions using the provided context from documents
+2. Cite sources explicitly: (Source: document.pdf, Page X)
+3. If context is insufficient, say so clearly
+4. For questions ABOUT a document itself (e.g., "what is the gazette of india?"), explain what you know from the chunks provided
 
-Your role for ON-TOPIC questions (aviation, airports, SCADA):
-1. Provide DETAILED, COMPREHENSIVE answers based on the provided context
-2. Include SPECIFIC definitions, procedures, and technical details from the documents
-3. Cite sources explicitly (document name and page number) for each major point
-4. When a term is defined in the context, provide the COMPLETE definition
-5. If the context contains procedures or steps, list them clearly
-6. For technical concepts, explain both the definition AND the practical application
-7. If multiple sources discuss the same topic, synthesize the information
-
-For OFF-TOPIC questions (GitHub, programming, unrelated topics):
-- Use ONLY the generic response template
-- Do NOT mention document contents or details
-- Do NOT cite pages or specific information
-- ONLY list document titles
+IMPORTANT RULES:
+- If you have relevant context chunks, USE THEM to answer
+- Don't refuse to answer just because chunks don't contain a perfect definition
+- If asked about a document itself and you have chunks from it, describe what the document contains
+- Always cite your sources with page numbers
+- Be specific and detailed
 
 Guidelines:
-- Be SPECIFIC and DETAILED for aviation/SCADA questions
+- Be SPECIFIC and DETAILED for questions about document content
 - Use exact terminology from the source documents
 - Maintain technical accuracy and precision
 - Reference sources explicitly: (Source: document.pdf, Page X)
 - Protect document privacy for off-topic queries
+
+FEW-SHOT EXAMPLES:
+
+Q: What is the Gazette of India?
+A: Based on the document "THE GAZETTE OF INDIA EXTRAORDINARY.pdf" in the knowledge base, the Gazette of India is the official government publication where notifications, regulations, and official announcements are published (Source: THE GAZETTE OF INDIA EXTRAORDINARY.pdf, Page 1). It contains legal notifications and government orders.
+
+Q: What is an Instrument Landing System (ILS)?
+A: An Instrument Landing System (ILS) is a ground-based radio navigation system that provides precision guidance to aircraft approaching and landing on a runway, especially in low visibility conditions (Source: airport_operations.pdf, Page 142).
+
+Example 2 - Procedural List:
+Q: What are the steps for aircraft pre-flight inspection?
+A: According to the maintenance procedures, aircraft pre-flight inspection follows these steps (Source: scada_manual.pdf, Page 87):
+
+1. Walk-around inspection - Visual check of fuselage, wings, landing gear for damage
+2. Fluid level checks - Oil, hydraulic fluid, fuel quantity verification
+3. Control surface movement - Verify ailerons, rudder, elevators move freely
+4. Tire inspection - Check for proper inflation and tread wear
+5. Documentation review - Confirm all required maintenance logs are current
+
+Each step must be completed and signed off by certified maintenance personnel before the aircraft is cleared for departure (Source: scada_manual.pdf, Page 88).
+The ILS consists of two main components:
+1. Localizer - provides lateral (left/right) guidance
+2. Glideslope - provides vertical (up/down) guidance
+
+The system allows pilots to land safely even when visibility is as low as 200 feet (Source: airport_operations.pdf, Page 143).
+
+=== END OF EXAMPLES ===
 """
 
 # ============================================================================
-# RETRIEVAL PROMPT TEMPLATE
+# RETRIEVAL PROMPT TEMPLATE - SIMPLIFIED
 # ============================================================================
 def get_rag_prompt(query: str, context: str, available_documents: list = None) -> str:
     """
-    Generate a RAG prompt with query and retrieved context
-    Includes privacy protection for off-topic queries
-    
-    Args:
-        query: User's question
-        context: Retrieved context from documents
-        available_documents: List of available document names
-    
-    Returns:
-        Formatted prompt string
+    Generate RAG prompt - OPTIMIZED version with relaxed rules
     """
-    # Create document list for off-topic responses
     if available_documents is None:
         available_documents = []
-    
+
     doc_list = "\n".join([f"• {doc}" for doc in available_documents]) if available_documents else "• No documents listed"
-    
+
     return f"""{SYSTEM_PROMPT}
 
-PRIVACY INSTRUCTION:
-First, determine if the user's question is related to aviation, airports, SCADA systems, or the technical domains in your knowledge base.
-
-If the question is OFF-TOPIC (e.g., about GitHub, cooking, general programming, unrelated topics):
-You MUST respond with ONLY this template (fill in the document names):
-
----
-I apologize, but the information you're asking about is not available in the provided technical documentation.
-
-📚 Available Documents:
+Available Documents in Knowledge Base:
 {doc_list}
 
-These documents focus on aviation operations, SCADA systems, and airport management.
-
-💡 Please feel free to ask questions related to:
-• Airport operations and procedures
-• SCADA systems and controls
-• Aviation safety and regulations
-• Aircraft handling and maintenance
-• Airport infrastructure and design
-
-How can I help you with aviation-related topics?
----
-
-If the question IS ON-TOPIC (about aviation, airports, SCADA):
-Provide a detailed answer using the context below.
-
-Context from Technical Documents:
+Context from Documents:
 {context}
 
 User Question:
 {query}
 
-Instructions for ON-TOPIC questions:
-- Provide a DETAILED, COMPREHENSIVE answer using the context above
-- If definitions are present in the context, include them COMPLETELY
-- Include specific procedures, steps, or methodologies mentioned
-- Cite sources for each major point using format: (Source: document_name.pdf, Page X)
-- If the context has multiple perspectives, synthesize them
-- Use technical terminology accurately
-- Be specific - avoid vague generalizations
+INSTRUCTIONS:
+- Use the context above to answer the question
+- If the context is relevant but incomplete, answer with what you have and note what's missing
+- Always cite sources: (Source: document.pdf, Page X)
+- Be detailed and specific
+- If the user is asking ABOUT a document itself (not content inside it), describe what the document contains based on the chunks
 
 Your Response:"""
 
 # ============================================================================
-# TABLE SCHEMA (for PostgreSQL)
+# TABLE SCHEMA
 # ============================================================================
 KNOWLEDGE_CHUNKS_TABLE = """
 CREATE TABLE IF NOT EXISTS knowledge_chunks (
     id SERIAL PRIMARY KEY,
     content TEXT NOT NULL,
-    embedding vector(384),  -- Matches EMBEDDING_DIMENSION
+    embedding vector(384),
     document_name VARCHAR(255) NOT NULL,
     page_number INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    metadata JSONB  -- For future extensibility (tags, categories, etc.)
+    metadata JSONB
 );
 
--- Create index for faster vector similarity search
-CREATE INDEX IF NOT EXISTS embedding_idx ON knowledge_chunks 
+CREATE INDEX IF NOT EXISTS embedding_idx ON knowledge_chunks
 USING ivfflat (embedding vector_cosine_ops)
 WITH (lists = 100);
 
--- Create index for text search (optional, for hybrid search)
 CREATE INDEX IF NOT EXISTS document_name_idx ON knowledge_chunks (document_name);
 CREATE INDEX IF NOT EXISTS page_number_idx ON knowledge_chunks (page_number);
 """
