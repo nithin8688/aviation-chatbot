@@ -304,7 +304,7 @@ with st.sidebar:
 
     # ── settings ──────────────────────────────────────────────────────
     st.header("⚙️ Settings")
-    top_k = st.slider("Number of sources to retrieve", min_value=3, max_value=15, value=8)
+    top_k = st.slider("Number of sources to retrieve", min_value=3, max_value=15, value=5)
 
     st.info("💡 **Tips for Better Answers:**\n- More sources = more detailed answers\n- Technical docs work best with 8-10 sources")
     st.info("💡 **Rate Limit Info:**\nFree tier: 15 requests/min\nServer-side limiter is active")
