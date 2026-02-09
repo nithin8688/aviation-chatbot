@@ -2,34 +2,16 @@
 Document QA Chatbot - Streamlit Web Application
 A RAG-based chatbot for document Q&A with PDF upload capability
 
-WHAT CHANGED vs the previous version
-─────────────────────────────────────
-1. RAG engine cached at process level
-   • Replaced st.session_state.rag_engine with @st.cache_resource.
-   • The 200 MB embedding model loads once when the first user connects;
-     every subsequent browser tab reuses the same instance.
-
-2. Server-side rate limiter  (RateLimiter class)
-   • The old approach was time.sleep(4) inside the browser session — two tabs
-     could fire simultaneously and both hit Gemini's 15-req/min cap.
-   • A threading.Lock-backed token bucket runs at the Streamlit-process level.
-     acquire() blocks any caller that would exceed the limit, regardless of
-     which browser tab the request came from.
-
-3. Delete-confirmation bug fixed
-   • confirm_delete is now reset to None every time the user changes the
-     document in the selectbox, so every document always gets the two-click
-     warning before deletion.
-
-4. CSS consolidated
-   • Three separate st.markdown(<style>…</style>) blocks merged into one
-     injection at the top of the page.
+VERSION 1.2.1 - API Usage Display Fix
+──────────────────────────────────────
+Fixed: API usage counter now updates immediately after each query
+Added: Auto-refresh of sidebar stats
 """
 
 import streamlit as st
 from pathlib import Path
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
 import threading
 
@@ -40,48 +22,115 @@ from src.config import PROJECT_ROOT
 
 
 # ============================================================================
-# SERVER-SIDE RATE LIMITER
+# IMPROVED RATE LIMITER (with usage tracking)
 # ============================================================================
-class RateLimiter:
+class ImprovedRateLimiter:
     """
-    Simple token-bucket rate limiter that is safe across Streamlit threads.
-
-    • max_requests / per_seconds  →  e.g. 15 requests per 60 seconds
-    • acquire() blocks the calling thread until a slot is available.
-    • Used once, right before every Gemini API call, so no tab can sneak
-      past the limit.
+    Enhanced rate limiter for Gemini API with dual limits:
+    - 15 requests per minute (short-term)
+    - 1500 requests per day (long-term)
+    
+    Shows user-friendly messages and progress during waits.
     """
 
-    def __init__(self, max_requests: int = 15, per_seconds: float = 60.0):
-        self.max_requests = max_requests
-        self.per_seconds  = per_seconds
-        self.timestamps   = []          # wall-clock times of recent requests
-        self.lock         = threading.Lock()
-
-    def acquire(self):
-        """Block until a request slot is available, then claim it."""
+    def __init__(self, 
+                 requests_per_minute: int = 15,
+                 requests_per_day: int = 1500):
+        self.rpm_limit = requests_per_minute
+        self.rpd_limit = requests_per_day
+        
+        # Short-term tracking (1 minute window)
+        self.minute_timestamps = []
+        
+        # Long-term tracking (24 hour window)
+        self.day_timestamps = []
+        
+        self.lock = threading.Lock()
+    
+    def acquire(self, show_progress=True):
+        """
+        Block until a request slot is available.
+        Returns (success: bool, wait_time: float, limit_type: str)
+        """
         while True:
             with self.lock:
                 now = time.time()
-                # discard timestamps older than the window
-                self.timestamps = [t for t in self.timestamps if now - t < self.per_seconds]
+                
+                # Clean old timestamps
+                self.minute_timestamps = [
+                    t for t in self.minute_timestamps 
+                    if now - t < 60.0
+                ]
+                
+                day_ago = now - (24 * 60 * 60)
+                self.day_timestamps = [
+                    t for t in self.day_timestamps
+                    if t > day_ago
+                ]
+                
+                # Check both limits
+                minute_available = len(self.minute_timestamps) < self.rpm_limit
+                day_available = len(self.day_timestamps) < self.rpd_limit
+                
+                if minute_available and day_available:
+                    # Slot available!
+                    self.minute_timestamps.append(now)
+                    self.day_timestamps.append(now)
+                    return True, 0, None
+                
+                # Calculate wait time
+                minute_wait = 0
+                day_wait = 0
+                limit_type = None
+                
+                if not minute_available:
+                    minute_wait = 60.0 - (now - self.minute_timestamps[0])
+                    limit_type = "minute"
+                
+                if not day_available:
+                    day_wait = (24 * 60 * 60) - (now - self.day_timestamps[0])
+                    limit_type = "day" if day_wait > minute_wait else limit_type
+                
+                wait_time = max(minute_wait, day_wait)
+            
+            if show_progress and wait_time > 0:
+                return False, wait_time, limit_type
+            
+            time.sleep(min(wait_time, 1.0))
+    
+    def get_usage_stats(self):
+        """Get current usage statistics"""
+        with self.lock:
+            now = time.time()
+            
+            # Clean old timestamps
+            self.minute_timestamps = [
+                t for t in self.minute_timestamps 
+                if now - t < 60.0
+            ]
+            day_ago = now - (24 * 60 * 60)
+            self.day_timestamps = [
+                t for t in self.day_timestamps
+                if t > day_ago
+            ]
+            
+            return {
+                "minute_used": len(self.minute_timestamps),
+                "minute_limit": self.rpm_limit,
+                "day_used": len(self.day_timestamps),
+                "day_limit": self.rpd_limit
+            }
 
-                if len(self.timestamps) < self.max_requests:
-                    self.timestamps.append(now)
-                    return                          # slot acquired — go ahead
 
-                # window is full; figure out how long until the oldest slot expires
-                wait = self.per_seconds - (now - self.timestamps[0])
-
-            # sleep OUTSIDE the lock so other threads aren't blocked while waiting
-            time.sleep(wait)
-
-# Module-level singleton — shared by every Streamlit tab in this process
-_rate_limiter = RateLimiter(max_requests=15, per_seconds=60.0)
+# Module-level singleton
+_rate_limiter = ImprovedRateLimiter(
+    requests_per_minute=15,
+    requests_per_day=1500
+)
 
 
 # ============================================================================
-# PAGE CONFIG  +  SINGLE CSS BLOCK
+# PAGE CONFIG
 # ============================================================================
 st.set_page_config(
     page_title="Document QA Chatbot",
@@ -90,70 +139,54 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# All styles in ONE injection — easier to maintain and debug
+# ============================================================================
+# THEME-ADAPTIVE CSS
+# ============================================================================
 st.markdown("""
 <style>
-    /* ── overall dark theme ──────────────────────────────── */
-    .main {
-        background-color: #0E1117;
-    }
-    .stMarkdown, .stText, p, span, div {
-        color: #FAFAFA !important;
-    }
-    h1, h2, h3, h4, h5, h6 {
-        color: #FFFFFF !important;
-    }
-
-    /* ── custom components ───────────────────────────────── */
     .main-header {
         font-size: 2.5rem;
         font-weight: bold;
-        color: #1E40AF;
+        color: #3B82F6;
         text-align: center;
         margin-bottom: 1rem;
     }
+    
     .source-box {
-        background-color: #1F2937;
-        color: #F9FAFB;
         padding: 1rem;
         border-radius: 0.5rem;
         margin: 0.5rem 0;
         border-left: 4px solid #3B82F6;
+        opacity: 0.95;
     }
+    
     .stats-box {
-        background-color: #1F2937;
-        color: #F9FAFB;
         padding: 1rem;
         border-radius: 0.5rem;
         margin: 0.5rem 0;
-        border: 1px solid #374151;
+        border: 1px solid #3B82F6;
+        opacity: 0.95;
     }
-
-    /* ── chat messages ───────────────────────────────────── */
-    .stChatMessage {
-        background-color: #1F2937;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        margin: 0.5rem 0;
-    }
-    .stMarkdown {
-        color: inherit;
+    
+    .source-label {
+        color: #3B82F6;
+        font-weight: bold;
     }
 </style>
 """, unsafe_allow_html=True)
 
 
 # ============================================================================
-# RAG ENGINE  —  cached at process level (not per browser session)
+# RAG ENGINE
 # ============================================================================
 @st.cache_resource
 def load_rag_engine():
-    """Load once per Streamlit process; every tab shares this instance."""
+    """Load once per Streamlit process"""
     return get_rag_engine()
 
 
 # ============================================================================
-# SESSION STATE  —  only per-user chat state lives here now
+# SESSION STATE
 # ============================================================================
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -161,9 +194,12 @@ if "messages" not in st.session_state:
 if "confirm_delete" not in st.session_state:
     st.session_state.confirm_delete = None
 
-# Track which document was selected last time so we can detect a change
 if "prev_doc_selection" not in st.session_state:
     st.session_state.prev_doc_selection = None
+
+# Track if we just processed a query (triggers sidebar refresh)
+if "query_processed" not in st.session_state:
+    st.session_state.query_processed = False
 
 
 # ============================================================================
@@ -179,12 +215,9 @@ def display_message(role, content, sources=None):
                 for i, source in enumerate(sources, 1):
                     st.markdown(f"""
                     <div class="source-box">
-                        <strong style="color: #60A5FA;">Source {i}:</strong>
-                        <span style="color: #F9FAFB;">{source['document']} (Page {source['page']})</span><br>
-                        <strong style="color: #60A5FA;">Relevance:</strong>
-                        <span style="color: #F9FAFB;">{source['similarity']:.3f}</span><br>
-                        <strong style="color: #60A5FA;">Preview:</strong>
-                        <span style="color: #D1D5DB;">{source['content'][:200]}...</span>
+                        <span class="source-label">Source {i}:</span> {source['document']} (Page {source['page']})<br>
+                        <span class="source-label">Relevance:</span> {source['similarity']:.3f}<br>
+                        <span class="source-label">Preview:</span> {source['content'][:200]}...
                     </div>
                     """, unsafe_allow_html=True)
 
@@ -216,13 +249,28 @@ with st.sidebar:
         total_chunks = get_total_chunks()
         doc_stats    = get_document_stats()
 
+        # Get API usage stats (ALWAYS fetch fresh data)
+        usage = _rate_limiter.get_usage_stats()
+
         st.markdown(f"""
         <div class="stats-box">
-            <strong style="color: #60A5FA;">📚 Knowledge Base</strong><br><br>
-            <span style="color: #F9FAFB;">Total Chunks: <strong>{total_chunks:,}</strong></span><br>
-            <span style="color: #F9FAFB;">Documents: <strong>{len(doc_stats)}</strong></span>
+            <span class="source-label">📚 Knowledge Base</span><br><br>
+            Total Chunks: <strong>{total_chunks:,}</strong><br>
+            Documents: <strong>{len(doc_stats)}</strong>
         </div>
         """, unsafe_allow_html=True)
+        
+        # API Usage Stats - Shows real-time usage
+        st.markdown(f"""
+        <div class="stats-box">
+            <span class="source-label">🔑 API Usage (Gemini)</span><br><br>
+            Per Minute: <strong>{usage['minute_used']}/{usage['minute_limit']}</strong><br>
+            Per Day: <strong>{usage['day_used']}/{usage['day_limit']}</strong>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Show last update time for debugging
+        st.caption(f"📍 Last updated: {datetime.now().strftime('%H:%M:%S')}")
 
         st.subheader("📄 Documents in Database")
         for doc_name, count in doc_stats:
@@ -230,16 +278,20 @@ with st.sidebar:
 
     except Exception as e:
         st.error(f"❌ Database connection error: {e}")
-        st.info("💡 Make sure PostgreSQL Docker container is running:\n`docker start aviation-postgres`")
-        doc_stats = []              # so the rest of the sidebar doesn't crash
+        st.info("💡 Make sure PostgreSQL is running and secrets are configured")
+        doc_stats = []
 
     st.divider()
 
     # ── PDF upload ────────────────────────────────────────────────────
     st.header("📤 Upload New PDF")
     uploaded_file = st.file_uploader("Choose a PDF file", type=["pdf"])
-
+    
     if uploaded_file is not None:
+        file_size_mb = len(uploaded_file.getvalue()) / (1024 * 1024)
+        if file_size_mb > 25:
+            st.warning(f"⚠️ Large file ({file_size_mb:.1f}MB)! May exceed memory limits on free tier. Consider splitting into smaller files.")
+        
         if st.button("🚀 Process PDF", type="primary"):
             upload_dir = PROJECT_ROOT / "data" / "uploaded_pdfs"
             upload_dir.mkdir(parents=True, exist_ok=True)
@@ -278,17 +330,12 @@ with st.sidebar:
         doc_options  = [doc[0] for doc in doc_stats]
         doc_to_delete = st.selectbox("Select document to delete", options=doc_options)
 
-        # ── BUG FIX: reset confirm_delete whenever the selection changes ──
-        # Before: switching from doc A to doc B kept confirm_delete = doc A,
-        #         so the very next click on "Delete" would confirm doc B
-        #         instantly — no warning shown.
         if doc_to_delete != st.session_state.prev_doc_selection:
             st.session_state.confirm_delete  = None
             st.session_state.prev_doc_selection = doc_to_delete
 
         if st.button("🗑️ Delete Document", type="secondary"):
             if st.session_state.confirm_delete == doc_to_delete:
-                # second click — confirmed
                 with st.spinner(f"Deleting {doc_to_delete}..."):
                     deleted = delete_document(doc_to_delete)
                 st.success(f"✅ Deleted {deleted} chunks from {doc_to_delete}")
@@ -296,7 +343,6 @@ with st.sidebar:
                 st.session_state.prev_doc_selection = None
                 st.rerun()
             else:
-                # first click — ask for confirmation
                 st.session_state.confirm_delete = doc_to_delete
                 st.warning("⚠️ Click again to confirm deletion")
 
@@ -306,8 +352,7 @@ with st.sidebar:
     st.header("⚙️ Settings")
     top_k = st.slider("Number of sources to retrieve", min_value=3, max_value=15, value=5)
 
-    st.info("💡 **Tips for Better Answers:**\n- More sources = more detailed answers\n- Technical docs work best with 8-10 sources")
-    st.info("💡 **Rate Limit Info:**\nFree tier: 15 requests/min\nServer-side limiter is active")
+    st.info("💡 **Tips:**\n- More sources = more detailed\n- 5-8 sources recommended")
 
     if st.button("🗑️ Clear Chat History"):
         st.session_state.messages = []
@@ -323,7 +368,7 @@ with st.sidebar:
 # ============================================================================
 st.divider()
 
-# replay saved messages
+# Replay saved messages
 for message in st.session_state.messages:
     display_message(
         message["role"],
@@ -331,57 +376,81 @@ for message in st.session_state.messages:
         message.get("sources")
     )
 
-# input box
+# Input box
 if prompt := st.chat_input("Ask a question about your documents..."):
 
-    # add user message immediately so it renders before the spinner
+    # Add user message
     st.session_state.messages.append({"role": "user", "content": prompt})
     display_message("user", prompt)
 
     with st.chat_message("assistant"):
+        
+        # ── RATE LIMIT CHECK ───────────────────────────────────────
+        success, wait_time, limit_type = _rate_limiter.acquire(show_progress=True)
+        
+        if not success and wait_time > 0:
+            if limit_type == "minute":
+                st.warning(f"⏳ Rate limit reached: 15 requests/minute. Waiting {wait_time:.0f} seconds...")
+            else:
+                st.error(f"🚫 Daily limit reached: 1500 requests/day. Please try again tomorrow.")
+            
+            # Progress bar
+            if wait_time <= 120:
+                progress_bar = st.progress(0)
+                status = st.empty()
+                
+                for i in range(int(wait_time)):
+                    remaining = wait_time - i
+                    progress = i / wait_time
+                    progress_bar.progress(progress)
+                    status.text(f"⏳ Waiting... {remaining:.0f}s remaining")
+                    time.sleep(1)
+                
+                progress_bar.empty()
+                status.empty()
+                st.rerun()  # Refresh to retry
+            else:
+                st.stop()
+        
+        # ── QUERY EXECUTION ─────────────────────────────────────────
         with st.spinner("🤔 Thinking..."):
             start_time = time.time()
 
             try:
-                # ── SERVER-SIDE RATE LIMIT ─────────────────────────
-                # acquire() blocks THIS thread (not a sleep in the browser)
-                # so concurrent tabs are serialised at the process level.
-                _rate_limiter.acquire()
-
-                # get the process-level cached engine
                 rag = load_rag_engine()
-
                 response = rag.query(prompt, top_k=top_k)
-
                 elapsed_time = time.time() - start_time
 
-                # display answer
+                # Display answer
                 answer = response["answer"]
                 st.markdown(answer)
 
                 st.caption(f"⏱️ Response time: {elapsed_time:.2f}s | 📚 Sources: {response['num_sources']}")
 
-                # source cards
+                # Source cards
                 if response["sources"]:
                     with st.expander("📚 View Sources", expanded=False):
                         for i, source in enumerate(response["sources"], 1):
                             st.markdown(f"""
                             <div class="source-box">
-                                <strong style="color: #60A5FA;">Source {i}:</strong>
-                                <span style="color: #F9FAFB;">{source['document']} (Page {source['page']})</span><br>
-                                <strong style="color: #60A5FA;">Relevance:</strong>
-                                <span style="color: #F9FAFB;">{source['similarity']:.3f}</span><br>
-                                <strong style="color: #60A5FA;">Preview:</strong>
-                                <span style="color: #D1D5DB;">{source['content'][:200]}...</span>
+                                <span class="source-label">Source {i}:</span> {source['document']} (Page {source['page']})<br>
+                                <span class="source-label">Relevance:</span> {source['similarity']:.3f}<br>
+                                <span class="source-label">Preview:</span> {source['content'][:200]}...
                             </div>
                             """, unsafe_allow_html=True)
 
-                # save to chat history
+                # Save to chat history
                 st.session_state.messages.append({
                     "role": "assistant",
                     "content": answer,
                     "sources": response["sources"]
                 })
+                
+                # Mark that we processed a query (triggers sidebar refresh)
+                st.session_state.query_processed = True
+                
+                # Force sidebar refresh by rerunning
+                st.rerun()
 
             except Exception as e:
                 error_msg = f"❌ Error: {str(e)}"
@@ -397,7 +466,7 @@ if prompt := st.chat_input("Ask a question about your documents..."):
 # ============================================================================
 st.divider()
 st.markdown("""
-<div style="text-align: center; color: #9CA3AF; font-size: 0.9rem; padding: 1rem;">
-    Document QA Chatbot v1.1 | Powered by PostgreSQL + pgvector + Gemini AI
+<div style="text-align: center; opacity: 0.6; font-size: 0.9rem; padding: 1rem;">
+    Document QA Chatbot v1.2.1 | Powered by PostgreSQL + pgvector + Gemini AI
 </div>
 """, unsafe_allow_html=True)
